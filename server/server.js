@@ -8,6 +8,41 @@ const docClient = new aws.DynamoDB.DocumentClient();
 var dynamodb = new aws.DynamoDB();
 
 
+// Create table
+exports.createTable = async function(tableName) {
+
+    const params = {
+        TableName: tableName,
+        AttributeDefinitions: [
+            {
+                AttributeName: 'id',
+                AttributeType: 'S'
+            }
+        ],
+        KeySchema: [
+            {
+                AttributeName: 'id',
+                KeyType: 'HASH'
+            }
+        ],
+        ProvisionedThroughput: {
+            ReadCapacityUnits: 5,
+            WriteCapacityUnits: 5
+        }
+    }
+
+    return new Promise((resolve, reject) => {
+        dynamodb.createTable(params, (err, res) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(res);
+            }
+        })
+    })
+}
+
+
 // GET all from table
 exports.get = async function(tableName) {
 
@@ -20,8 +55,7 @@ exports.get = async function(tableName) {
             if (err) {
                 reject(err);
             } else {
-                const { Items } = data;
-                resolve(Items);
+                resolve(data);
             }
         })
     })
@@ -29,23 +63,21 @@ exports.get = async function(tableName) {
 
 
 // GET item from table by ID
-exports.getById = async function(tableName, itemId) {
+exports.getItem = async function(tableName, itemId) {
 
     const params = {
         TableName: tableName,
-        KeyConditionExpression: 'invoiceId = :i',
-        ExpressionAttributeValues: {
-            ':i': itemId
+        Key: {
+            id: itemId
         }
     }
 
     return new Promise((resolve, reject) => {
-        docClient.query(params, (err, data) => {
+        docClient.get(params, (err, data) => {
             if (err) {
                 reject(err);
             } else {
-                const { Items } = data;
-                resolve(Items);
+                resolve(data);
             }
         })
     })
@@ -62,6 +94,28 @@ exports.put = async function(tableName, item) {
 
     return new Promise((resolve, reject) => {
         docClient.put(params, (err, res) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(res);
+            }
+        })
+    })
+}
+
+
+// DELETE item from table
+exports.delete = async function(tableName, itemId) {
+
+    const params = {
+        TableName: tableName,
+        Key: {
+            id: itemId
+        }
+    }
+
+    return new Promise((resolve, reject) => {
+        docClient.delete(params, (err, res) => {
             if (err) {
                 reject(err);
             } else {

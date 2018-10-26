@@ -1,0 +1,21 @@
+// EXTERNAL RESOURCES
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+// MIXINS & VARIABLES
+@import '/styles/mixins';
+@import '/styles/variables';
+
+// COMPONENTS
+@import '/styles/components/buttons';
+@import '/styles/components/cards';
+@import '/styles/components/dialogs';
+@import '/styles/components/forms';
+@import '/styles/components/layout';
+@import '/styles/components/menus';
+@import '/styles/components/navigation';
+@import '/styles/components/snackbars';
+@import '/styles/components/summaries';
+@import '/styles/components/tables';
+@import '/styles/components/toolbars';
+@import '/styles/components/typography';

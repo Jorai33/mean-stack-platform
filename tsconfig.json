@@ -16,6 +16,11 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+		"baseUrl": "src",
+		"paths": {
+			"@app/*": ["app/*"],
+			"@env/*": ["environments/*"]
+		}
   }
 }
