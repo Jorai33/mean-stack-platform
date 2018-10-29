@@ -1,26 +1,44 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { ContactsRoutingModule } from './contacts-routing.module';
+
+// SHARED/MATERIAL MODULES
+import { SharedModule } from '@app/shared.module';
+import { MaterialModule } from '@app/material.module';
+
 // Components
-import { NewContactComponent } from './new-contact/new-contact.component';
-import { ViewContactComponent } from './view-contact/view-contact.component';
-import { AllContactsComponent } from './all-contacts/all-contacts.component';
+	// New Contact
+	import { NewContactComponent } from './new-contact/new-contact.component';
+	// View Contact
+      import { ViewContactComponent } from './view-contact/view-contact.component';
+      // All Contacts
+      import { AllContactsComponent } from './all-contacts/all-contacts.component';
 
 @NgModule({
+
 	imports: [
-		CommonModule
+		CommonModule,
+		ContactsRoutingModule,
+		SharedModule,
+		MaterialModule
 	],
+
 	declarations: [
-		NewContactComponent,
-		ViewContactComponent,
-		AllContactsComponent
+		// Components
+			// New Contact
+			NewContactComponent,
+			// View Contact
+			ViewContactComponent,
+			// All Contacts
+			AllContactsComponent
+	],
+
+	entryComponents: [
+		// Dialogs
 	]
 })
 
 export class ContactsModule {
-
-	constructor() {
-
-	}
 
 }
