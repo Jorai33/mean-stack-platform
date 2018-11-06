@@ -3,10 +3,11 @@ import { RouterModule, Routes, RouterLinkActive } from '@angular/router';
 import { CanActivateRouteGuard } from './can-activate-route.guard';
 
 // Components
-	import { DashboardComponent } from './dashboard/dashboard.component';
-	import { LoginComponent } from './login/login.component';
-	import { RegisterComponent } from './register/register.component';
-	import { NotificationsComponent } from './notifications/notifications.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { SettingsComponent } from './settings/settings.component';
 	
 const routes: Routes = [
 	{
@@ -15,7 +16,7 @@ const routes: Routes = [
 		pathMatch: 'full'
 	},
 	{
-		path: 'dashboard',
+		path: 'home',
 		component: DashboardComponent,
 		canActivate: [CanActivateRouteGuard]
 	},
@@ -40,6 +41,12 @@ const routes: Routes = [
 		path: 'notifications/:id',
 		component: NotificationsComponent,
 		canActivate: [CanActivateRouteGuard]
+	},
+
+	// Settings
+	{
+		path: 'settings',
+		component: SettingsComponent
 	},
 
 	// Contacts

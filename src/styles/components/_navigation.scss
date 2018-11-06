@@ -1,0 +1,123 @@
+@import 'notificationsMenu';
+
+mat-sidenav-container {
+    height: 100vh;
+}
+
+mat-sidenav-content.mat-drawer-content {
+    position: relative;
+    width: 100%;
+    padding: 80px 20px 20px 20px;
+}
+
+mat-toolbar.mat-toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: 60px;
+    height: 60px;
+    width: 100%;
+    margin-left: auto;
+    background: transparent;
+
+    mat-toolbar-row {
+        padding: 0;
+        min-height: 60px;
+        height: 60px;
+
+        &.justify-content-between {
+            justify-content: space-between;
+        }
+
+        &.justify-content-start {
+            justify-content: flex-start;
+        }
+
+        &.justify-content-end {
+            justify-content: flex-end;
+        }
+
+        div {
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    a {
+        padding: 20px;
+        color: rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+
+        &:hover {
+            color: $blue-primary;
+        }
+
+        .mat-badge-content {
+            top: 20% !important;
+            right: 20% !important;
+            font-size: 10px !important;
+        }
+    }
+}
+
+mat-sidenav {
+    min-width: 15vw;
+    width: 15vw;
+
+    div.navbar-brand {
+        height: 60px;
+        padding: 0 20px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+        cursor: pointer;
+        
+        a {
+            line-height: 60px;
+            width: 100%;
+            color: $text-primary;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+
+            &:focus {
+                color: $text-primary;
+            }
+        }
+    }
+}
+
+mat-nav-list {
+    margin-top: 20px;
+
+    .mat-list-item {
+        border-left: 4px solid transparent;
+
+        .mat-list-item-content {
+            padding: 0 20px !important;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        mat-icon,
+        .mat-icon {
+            height: auto;
+            margin-right: 10px;
+            font-size: 18px;
+            color: rgba(0, 0, 0, 0.3);
+        }
+    }
+
+    .mat-list-item.active-route {
+        border-left: 4px solid $green-primary;
+        
+        mat-icon,
+        .mat-icon,
+        .mat-list-text {
+            color: $green-primary;
+        }
+    }
+
+    .mat-divider {
+        margin: 0 20px;
+        border-top-color: rgba(0, 0, 0, 0.06);
+    }
+}

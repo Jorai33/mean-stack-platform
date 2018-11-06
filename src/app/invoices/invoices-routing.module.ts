@@ -8,17 +8,17 @@ import { AllInvoicesComponent } from './all-invoices/all-invoices.component';
 
 const routes: Routes = [
 	{
+		path: 'invoices/all',
+		component: AllInvoicesComponent
+	},
+	{
 		path: 'invoices/new',
 		component: NewInvoiceComponent
 	},
 	{
 		path: 'invoices/:id',
 		component: ViewInvoiceComponent
-	},
-	{
-		path: 'invoices/all',
-		component: AllInvoicesComponent
-	},
+	}
 ]
 
 @NgModule({

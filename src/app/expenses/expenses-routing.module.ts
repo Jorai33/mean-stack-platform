@@ -9,6 +9,10 @@ import { RouterModule, Routes, RouterLinkActive } from '@angular/router';
 
 const routes: Routes = [
 	{
+		path: 'expenses/all',
+		component: AllExpensesComponent
+	},
+	{
 		path: 'expenses/new',
 		component: NewExpenseComponent
 	},
@@ -19,10 +23,6 @@ const routes: Routes = [
 	{
 		path: 'expenses/:id',
 		component: ViewExpenseComponent
-	},
-	{
-            path: 'expenses/all',
-		component: AllExpensesComponent
 	}
 ]
 

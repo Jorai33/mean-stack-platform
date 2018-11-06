@@ -1,3 +1,123 @@
-<h4>angular7-dynamodb-finance</h4>
+<mat-sidenav-container class="example-container" *ngIf="auth.isAuthenticated" fxLayout="row">
 
-<router-outlet *ngIf="auth.isAuthenticated"></router-outlet>
+    <mat-sidenav opened mode="side" fxLayout="column">
+        
+        <div class="navbar-brand">
+
+            <a matRipple routerLink="/home">JustAccounts</a>
+
+        </div>
+
+        <mat-nav-list>
+            
+            <a mat-list-item routerLink="/home" routerLinkActive="active-route">
+            
+                <mat-icon>home</mat-icon>
+
+                <div class="mat-list-text">Home</div>
+            
+            </a>
+
+            <mat-divider></mat-divider>
+            
+            <a mat-list-item routerLink="/invoices/all" routerLinkActive="active-route">
+            
+                <mat-icon>attach_money</mat-icon>
+
+                <div class="mat-list-text">Invoicing</div>
+            
+            </a>
+            
+            <a mat-list-item routerLink="/expenses/all" routerLinkActive="active-route">
+            
+                <mat-icon>money_off</mat-icon>
+
+                <div class="mat-list-text">Expenses</div>
+            
+            </a>
+            
+            <a mat-list-item routerLink="/mileage/all" routerLinkActive="active-route">
+            
+                <mat-icon>directions_car</mat-icon>
+
+                <div class="mat-list-text">Mileage</div>
+            
+            </a>
+            
+            <a mat-list-item routerLink="/contacts/all" routerLinkActive="active-route">
+            
+                <mat-icon>people</mat-icon>
+
+                <div class="mat-list-text">Contacts</div>
+            
+            </a>
+
+            <mat-divider></mat-divider>
+            
+            <a mat-list-item routerLink="/settings" routerLinkActive="active-route">
+            
+                <mat-icon>settings</mat-icon>
+
+                <div class="mat-list-text">Settings</div>
+            
+            </a>
+
+        </mat-nav-list>
+        
+    </mat-sidenav>
+
+    <mat-sidenav #notificationsMenu id="notificationsMenu" mode="side" position="end">
+        
+        <p class="mat-subheading-1">Notifications</p>
+
+        <mat-nav-list dense>
+
+            <mat-list-item *ngFor="let notification of notifs.notifications">
+
+                <p matLine class="mat-body-strong">{{notification.title}}</p>
+
+                <p matLine class="mat-small">{{notification.description}}</p>
+
+            </mat-list-item>
+
+        </mat-nav-list>
+
+    </mat-sidenav>
+
+    <mat-toolbar *ngIf="isAuthenticated">
+    
+        <mat-toolbar-row class="justify-content-between">
+
+            <div class="toolbar-left">
+
+                <div id="searchbar">
+                    
+
+
+                </div>
+
+            </div>
+
+            <div class="toolbar-right">
+            
+                <a (click)="notificationsMenu.toggle()" *ngIf="notifs.notifications.length" class="material-icons" matBadge={{notifs.notifications.length}} matBadgeSize="small">notifications</a>
+            
+                <a *ngIf="!notifs.notifications.length" class="material-icons">notifications_none</a>
+                
+                <a class="material-icons">person</a>
+
+            </div>
+    
+        </mat-toolbar-row>
+    
+    </mat-toolbar>
+
+    <router-outlet *ngIf="auth.isAuthenticated">
+        
+
+
+    </router-outlet>
+
+</mat-sidenav-container>
+
+<router-outlet *ngIf="!auth.isAuthenticated"></router-outlet>

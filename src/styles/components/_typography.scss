@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700|Material+Icons');
+
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+a, p, h1, h2, h3, h4, h5 {
+    margin: 0;
+}
+
+.font-weight-semibold {
+    font-weight: 500;
+}
+
+.font-weight-bold {
+    font-weight: 700;
+}
+
+a {
+    transition: 0.1s ease;
+}
+
+a.material-icons {
+    font-size: 20px;
+}

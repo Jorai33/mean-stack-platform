@@ -23,6 +23,7 @@ import { DashboardComponent } from '@app/dashboard/dashboard.component';
 import { LoginComponent } from '@app/login/login.component';
 import { RegisterComponent } from '@app/register/register.component';
 import { NotificationsComponent } from '@app/notifications/notifications.component';
+import { SettingsComponent } from './settings/settings.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { NotificationsComponent } from '@app/notifications/notifications.compone
 		DashboardComponent,
 		LoginComponent,
 		RegisterComponent,
-		NotificationsComponent
+		NotificationsComponent,
+		SettingsComponent
 	],
 	imports: [
         // Angular Core

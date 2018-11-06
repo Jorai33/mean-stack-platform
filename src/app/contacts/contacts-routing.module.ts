@@ -8,16 +8,16 @@ import { RouterModule, Routes, RouterLinkActive } from '@angular/router';
 
 const routes: Routes = [
 	{
+		path: 'contacts/all',
+		component: AllContactsComponent
+	},
+	{
 		path: 'contacts/new',
 		component: NewContactComponent
 	},
 	{
 		path: 'contacts/:id',
 		component: ViewContactComponent
-	},
-	{
-		path: 'contacts/all',
-		component: AllContactsComponent
 	}
 ]
 
