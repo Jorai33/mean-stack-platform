@@ -89,11 +89,10 @@ mat-nav-list {
     margin-top: 20px;
 
     .mat-list-item {
-        border-left: 4px solid transparent;
 
         .mat-list-item-content {
             padding: 0 20px !important;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 500;
         }
 
@@ -107,7 +106,6 @@ mat-nav-list {
     }
 
     .mat-list-item.active-route {
-        border-left: 4px solid $green-primary;
         
         mat-icon,
         .mat-icon,

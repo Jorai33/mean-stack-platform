@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NotificationsService } from '@app/services/notifications/notifications.service';
 
 @Component({
   selector: 'app-notifications',
@@ -8,12 +9,14 @@ import { Component, OnInit } from '@angular/core';
 
 export class NotificationsComponent implements OnInit {
 
-  constructor() {
+	selectedNotification;
 
-  }
-
-  ngOnInit() {
-
-  }
+	constructor(public notifs: NotificationsService) {
+		this.selectedNotification = notifs.selectedNotification;
+	}
+	
+	ngOnInit() {
+	
+	}
 
 }

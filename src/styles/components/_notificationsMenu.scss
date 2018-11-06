@@ -1,9 +1,16 @@
 #notificationsMenu {
     background: linear-gradient(to bottom right, #0C97FF, #1873FF);
+    border-left: none;
+    width: 25vw !important;
+    color: #fff;
 
     .mat-subheading-1 {
         padding: 20px 20px 0 20px;
         color: #fff;
+    }
+
+    .mat-subheader {
+          color: #fff;
     }
 
     .mat-list-item {
@@ -12,5 +19,15 @@
 
     .mat-list-item-content {
         color: #fff;
+    }
+
+    .mat-line {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          mat-icon {
+                color: #fff;
+          }
     }
 }

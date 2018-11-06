@@ -66,17 +66,49 @@
         
     </mat-sidenav>
 
-    <mat-sidenav #notificationsMenu id="notificationsMenu" mode="side" position="end">
+    <mat-sidenav #notificationsMenu id="notificationsMenu" mode="side" position="end" class="mat-elevation-z2">
         
-        <p class="mat-subheading-1">Notifications</p>
+        <p class="mat-subheading-1">
+              
+            Notifications 
+            
+            <span class="mat-small">({{notifs.unreadNotifications.length}} unread)</span>
+      
+      </p>
+
+      <!-- TODO: full-size no-notifications layer -->
 
         <mat-nav-list dense>
 
-            <mat-list-item *ngFor="let notification of notifs.notifications">
+            <mat-list-item (click)="notifs.markAllRead()" *ngIf="notifs.unreadNotifications.length">
 
-                <p matLine class="mat-body-strong">{{notification.title}}</p>
+                  <a matLine class="mat-small">
+                        
+                        Mark all as read
+                        
+                        <mat-icon>done_all</mat-icon>
+                  
+                  </a>
 
-                <p matLine class="mat-small">{{notification.description}}</p>
+            </mat-list-item>
+
+            <mat-list-item routerLink="/notifications">
+
+                  <a matLine class="mat-small">
+                        
+                        View all
+                        
+                        <mat-icon>list</mat-icon>
+                  
+                  </a>
+
+            </mat-list-item>
+
+            <mat-list-item *ngFor="let notification of notifs.unreadNotifications" (click)="notifs.viewNotification(notification); notificationsMenu.toggle()">
+
+                  <p matLine class="mat-body-strong">{{notification.title}}</p>
+
+                  <p matLine class="mat-small">{{notification.description}}</p>
 
             </mat-list-item>
 
@@ -100,7 +132,7 @@
 
             <div class="toolbar-right">
             
-                <a (click)="notificationsMenu.toggle()" *ngIf="notifs.notifications.length" class="material-icons" matBadge={{notifs.notifications.length}} matBadgeSize="small">notifications</a>
+                <a (click)="notificationsMenu.toggle()" *ngIf="notifs.notifications.length" class="material-icons" matBadge={{notifs.unreadNotifications.length}} matBadgeSize="small">notifications</a>
             
                 <a *ngIf="!notifs.notifications.length" class="material-icons">notifications_none</a>
                 

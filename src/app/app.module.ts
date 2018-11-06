@@ -51,7 +51,7 @@ import { SettingsComponent } from './settings/settings.component';
 		// Material Module
 		MaterialModule,
 
-		// Shared Module
+            // Shared Module
 		SharedModule
 	],
 	providers: [
