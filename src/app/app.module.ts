@@ -1,10 +1,13 @@
 // Angular Core
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 
 // App Routing Module
 import { AppRoutingModule } from '@app/app-routing.module';
+
+// Route Guard
+import { CanActivateRouteGuard } from '@app/can-activate-route.guard';
 
 // Feature Modules
 import { ContactsModule } from '@app/contacts/contacts.module';
@@ -55,7 +58,11 @@ import { SettingsComponent } from './settings/settings.component';
 		SharedModule
 	],
 	providers: [
-
+		CanActivateRouteGuard
+		// {
+		// 	provide: LOCALE_ID,
+		// 	useValue: 'en-GB'
+		// }
 	],
 	bootstrap: [AppComponent]
 })

@@ -6,7 +6,9 @@ mat-sidenav-container {
 
 mat-sidenav-content.mat-drawer-content {
     position: relative;
+    height: calc(100vh - 100px);
     width: 100%;
+    overflow-y: scroll;
     padding: 80px 20px 20px 20px;
 }
 
@@ -43,8 +45,8 @@ mat-toolbar.mat-toolbar {
         }
     }
 
-    a {
-        padding: 20px;
+    button.mat-icon-button {
+        margin: 20px;
         color: rgba(0, 0, 0, 0.3);
         cursor: pointer;
 
@@ -52,9 +54,17 @@ mat-toolbar.mat-toolbar {
             color: $blue-primary;
         }
 
+        &:last-of-type {
+            margin-left: 0;
+        }
+
+        mat-icon {
+            font-size: 20px;
+        }
+
         .mat-badge-content {
-            top: 20% !important;
-            right: 20% !important;
+            top: 10% !important;
+            right: 10% !important;
             font-size: 10px !important;
         }
     }
@@ -62,7 +72,6 @@ mat-toolbar.mat-toolbar {
 
 mat-sidenav {
     min-width: 15vw;
-    width: 15vw;
 
     div.navbar-brand {
         height: 60px;

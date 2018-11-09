@@ -66,7 +66,7 @@
         
     </mat-sidenav>
 
-    <mat-sidenav #notificationsMenu id="notificationsMenu" mode="side" position="end" class="mat-elevation-z2">
+    <mat-sidenav #notificationsMenu id="notificationsMenu" mode="over" position="end">
         
         <p class="mat-subheading-1">
               
@@ -75,8 +75,6 @@
             <span class="mat-small">({{notifs.unreadNotifications.length}} unread)</span>
       
       </p>
-
-      <!-- TODO: full-size no-notifications layer -->
 
         <mat-nav-list dense>
 
@@ -94,7 +92,7 @@
 
             <mat-list-item routerLink="/notifications">
 
-                  <a matLine class="mat-small">
+                  <a (click)="notificationsMenu.toggle()" matLine class="mat-small">
                         
                         View all
                         
@@ -123,7 +121,7 @@
             <div class="toolbar-left">
 
                 <div id="searchbar">
-                    
+
 
 
                 </div>
@@ -131,12 +129,48 @@
             </div>
 
             <div class="toolbar-right">
-            
-                <a (click)="notificationsMenu.toggle()" *ngIf="notifs.notifications.length" class="material-icons" matBadge={{notifs.unreadNotifications.length}} matBadgeSize="small">notifications</a>
-            
-                <a *ngIf="!notifs.notifications.length" class="material-icons">notifications_none</a>
+
+                <button mat-icon-button (click)="notificationsMenu.toggle()" *ngIf="notifs.notifications.length" matBadge={{notifs.unreadNotifications.length}} matBadgeSize="small">
+                    
+                    <mat-icon>notifications</mat-icon>
+
+                </button>
+
+                <button mat-icon-button (click)="notificationsMenu.toggle()" *ngIf="!notifs.notifications.length">
+
+                    <mat-icon>notifications_none</mat-icon>
+
+                </button>
                 
-                <a class="material-icons">person</a>
+                <button mat-icon-button [matMenuTriggerFor]="accountMenu">
+
+                    <mat-icon>person</mat-icon>
+
+                </button>
+
+                <mat-menu #accountMenu="matMenu" class="menu-right">
+
+                    <button mat-menu-item>
+                        
+                        <mat-icon>person</mat-icon>
+
+                        <span>My Account</span>
+
+                    </button>
+
+                    <button mat-menu-item>
+                        
+                        <mat-icon>headset_mic</mat-icon>
+
+                        <span>Contact Support</span>
+
+                    </button>
+
+                    <mat-divider></mat-divider>
+
+                    <button mat-menu-item (click)="auth.signOut()">Sign Out</button>
+
+                </mat-menu>
 
             </div>
     

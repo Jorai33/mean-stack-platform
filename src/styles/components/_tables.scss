@@ -1,0 +1,13 @@
+th.mat-header-cell:first-of-type {
+    button.mat-sort-header-button {
+        font-weight: 500;
+    }
+}
+
+td.mat-cell {
+    font-size: 13px;
+
+    &:first-of-type {
+        font-weight: 500;
+    }
+}

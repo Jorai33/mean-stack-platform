@@ -1,0 +1,14 @@
+button.mat-menu-item {
+    font-size: 13px;
+
+    .menu-right & {
+        text-align: right;
+    }
+
+    mat-icon,
+    .mat-icon,
+    .mat-icon:not([color]) {
+        font-size: 18px;
+        color: rgba(0, 0, 0, 0.3);
+    }
+}

@@ -1,0 +1,15 @@
+td.mat-cell.status {
+    font-weight: 500;
+
+    &.open {
+        color: #0065FB;
+    }
+
+    &.overdue {
+        color: #F44336;
+    }
+
+    &.paid {
+        color: #4CAF50;
+    }
+}

@@ -10,6 +10,7 @@ import { AuthService } from '@app/services/auth/auth.service';
 import { NotificationsService } from '@app/services/notifications/notifications.service';
 import { UsersService } from '@app/services/users/users.service';
 import { TaxCodesService } from '@app/services/tax-codes/tax-codes.service';
+import { InvoicesService } from './services/invoices/invoices.service';
 
 import { NotificationsComponent } from './notifications/notifications.component';
 
@@ -23,10 +24,6 @@ export class AppComponent {
 	
 	constructor(private router: Router, public auth: AuthService, public notifs: NotificationsService, private users: UsersService, private taxCodes: TaxCodesService) {
 		
-	}
-	
-	ngOnInit() {
-            
 	}
     
     get isAuthenticated(): boolean {

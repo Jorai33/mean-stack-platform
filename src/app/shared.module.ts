@@ -36,6 +36,7 @@ import { ParseFloatDirective } from '@app/directives/parse-float.directive';
 // Services
 import { AuthService } from './services/auth/auth.service';
 import { ContactsService } from '@app/services/contacts/contacts.service';
+import { DataService } from '@app/services/data/data.service';
 import { ExpensesService } from '@app/services/expenses/expenses.service';
 import { InvoicesService } from '@app/services/invoices/invoices.service';
 import { TaxCodesService } from '@app/services/tax-codes/tax-codes.service';
@@ -106,8 +107,9 @@ import { UsersService } from '@app/services/users/users.service';
 		// Services
 		AuthService,
 		ContactsService,
-		InvoicesService,
+		DataService,
 		ExpensesService,
+		InvoicesService,
 		TaxCodesService,
 		NominalsService,
 		NotificationsService,

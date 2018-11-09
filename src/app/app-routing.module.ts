@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, RouterLinkActive } from '@angular/router';
-import { CanActivateRouteGuard } from './can-activate-route.guard';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { CanActivateRouteGuard } from '@app/can-activate-route.guard';
 
 // Components
 import { DashboardComponent } from './dashboard/dashboard.component';

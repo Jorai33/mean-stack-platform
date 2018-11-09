@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, RouterLinkActive } from '@angular/router';
+import { RouterModule, Routes, RouterLinkActive, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { CanActivateRouteGuard } from '@app/can-activate-route.guard';
 
 // Components
 import { NewInvoiceComponent } from './new-invoice/new-invoice.component';
@@ -9,7 +10,8 @@ import { AllInvoicesComponent } from './all-invoices/all-invoices.component';
 const routes: Routes = [
 	{
 		path: 'invoices/all',
-		component: AllInvoicesComponent
+		component: AllInvoicesComponent,
+		canActivate: [CanActivateRouteGuard]
 	},
 	{
 		path: 'invoices/new',

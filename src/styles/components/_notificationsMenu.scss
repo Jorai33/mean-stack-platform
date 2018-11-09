@@ -1,8 +1,11 @@
 #notificationsMenu {
     background: linear-gradient(to bottom right, #0C97FF, #1873FF);
     border-left: none;
-    width: 25vw !important;
+    width: 25vw;
     color: #fff;
+    @media screen and (max-width: 992px) {
+        width: 75vw;
+    }
 
     .mat-subheading-1 {
         padding: 20px 20px 0 20px;

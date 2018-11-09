@@ -1,7 +1,7 @@
 const config = require('./config');
 const aws = require('aws-sdk');
 
-aws.config.loadFromPath('./server/credentials.json');
+aws.config.loadFromPath('./credentials.json');
 
 const s3 = new aws.S3();
 const docClient = new aws.DynamoDB.DocumentClient();
