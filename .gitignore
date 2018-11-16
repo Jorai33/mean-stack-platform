@@ -4,6 +4,9 @@
 /server/config.js
 /server/credentials.json
 
+# interfaces images
+/interfaces
+
 # compiled output
 /dist
 /tmp
