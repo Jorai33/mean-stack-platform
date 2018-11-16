@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, from } from 'rxjs';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import * as moment from 'moment';
 
-import Invoice from '../invoice.interface';
-import { DataService } from '../../services/data/data.service';
+import Invoice from '@app/interfaces/invoice.interface';
+import { InvoicesService } from '@app/services/invoices/invoices.service';
+import { DataService } from '@app/services/data/data.service';
 
 @Component({
 	selector: 'app-all-invoices',
@@ -29,7 +31,7 @@ export class AllInvoicesComponent implements OnInit {
 		'status'
 	]
 
-	constructor(private database: DataService) {
+	constructor(public invoicesService: InvoicesService, private dataService: DataService, private router: Router) {
 
 	}
 
@@ -38,11 +40,12 @@ export class AllInvoicesComponent implements OnInit {
 	}
 	
 	ngAfterViewInit() {
+		
 	}
 
 	async buildTable() {
 		try {
-			this.invoices = await this.database.getItems('invoices');
+			this.invoices = await this.dataService.getItems('invoices');
 			this.dataSource.data = this.invoices;
 			this.dataSource.paginator = this.paginator;
 			this.dataSource.sort = this.sort;
@@ -58,6 +61,10 @@ export class AllInvoicesComponent implements OnInit {
 				this.total += invoice.total;
 			}
 		})
+	}
+
+	viewInvoice(invoice) {
+		this.router.navigateByUrl(`invoices/${invoice.id}`)
 	}
 
 }

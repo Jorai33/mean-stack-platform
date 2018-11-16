@@ -1,4 +1,4 @@
-<p>All Invoices</p>
+<p class="mat-h4">All Invoices</p>
 
 <br>
 
@@ -14,7 +14,7 @@
 
 <mat-progress-bar *ngIf="!dataSource.data.length" mode="indeterminate"></mat-progress-bar>
 
-<table *ngIf="dataSource" mat-table [dataSource]="dataSource" matSort class="mat-elevation-z1" width="100%">
+<table *ngIf="dataSource" mat-table [dataSource]="dataSource" matSort matSortActive="id" matSortDirection="asc" class="mat-elevation-z1" width="100%">
 	
 	<ng-container matColumnDef="id">
 
@@ -66,7 +66,7 @@
 
 	<tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
 	
-    <tr mat-row *matRowDef="let row; columns: tableColumns">
+    <tr mat-row *matRowDef="let row; columns: tableColumns" (click)="viewInvoice(row)">
 
 </table>
 

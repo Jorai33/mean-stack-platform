@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, RouterLinkActive, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { RouterModule, Routes, RouterLinkActive, CanActivate } from '@angular/router';
 import { CanActivateRouteGuard } from '@app/can-activate-route.guard';
 
 // Components
@@ -15,23 +15,25 @@ const routes: Routes = [
 	},
 	{
 		path: 'invoices/new',
-		component: NewInvoiceComponent
+		component: NewInvoiceComponent,
+		canActivate: [CanActivateRouteGuard]
 	},
 	{
 		path: 'invoices/:id',
-		component: ViewInvoiceComponent
+		component: ViewInvoiceComponent,
+		canActivate: [CanActivateRouteGuard]
 	}
 ]
 
 @NgModule({
 
-  imports: [
-    RouterModule.forChild(routes)
-  ],
-  
-  exports: [
-    RouterModule
-  ]
+	imports: [
+		RouterModule.forChild(routes)
+	],
+
+	exports: [
+		RouterModule
+	]
 
 })
 

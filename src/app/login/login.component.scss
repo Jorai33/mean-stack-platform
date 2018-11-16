@@ -1,0 +1,19 @@
+#login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+
+    mat-card {
+        padding: 25px;
+    }
+
+    mat-form-field {
+        width: 75%;
+    }
+    
+    button#signIn {
+        width: 75%;
+    }
+}

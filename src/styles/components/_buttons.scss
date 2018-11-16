@@ -1,12 +1,41 @@
+button.mat-button,
 button.mat-raised-button {
     height: 35px;
     line-height: 35px;
-    font-weight: 500;
+    font-weight: 400;
     font-size: 13px;
+    min-width: 75px;
+}
+
+button.mat-button {
+    color: #434b65;
+}
+
+button.mat-raised-button {
     color: #fff;
     background: $blue-primary;
+
+    &.secondary {
+        color: $blue-primary;
+        background: #fff;
+
+        &:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+    }
 }
 
 button.mat-icon-button {
     transition: 0.2s ease;
+}
+
+a.link-secondary {
+    color: $blue-primary;
+    text-decoration: none;
+    font-size: 12px;
+    cursor: pointer;
+
+    &:hover {
+        opacity: 0.6;
+    }
 }

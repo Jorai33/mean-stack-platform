@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as aws from 'aws-sdk';
+import * as AWS from 'AWS-sdk';
 import { Observable } from 'rxjs';
 import credentials from '../../../../server/credentials.json';
 
@@ -13,13 +13,13 @@ export class DataService {
 	docClient;
 
 	constructor() {
-		aws.config.credentials = new aws.Credentials(credentials.accessKeyId, credentials.secretAccessKey, null);
-		aws.config.update({
+		AWS.config.credentials = new AWS.Credentials(credentials.accessKeyId, credentials.secretAccessKey, null);
+		AWS.config.update({
 			region: 'eu-west-1'
 		})
 
-		this.dynamodb = new aws.DynamoDB();
-		this.docClient = new aws.DynamoDB.DocumentClient();
+		this.dynamodb = new AWS.DynamoDB();
+		this.docClient = new AWS.DynamoDB.DocumentClient();
 	}
 	
 	async getItems(tableName) {
@@ -51,7 +51,7 @@ export class DataService {
 				if (err) {
 					reject(err);
 				} else {
-					resolve(data);
+					resolve(data.Item);
 				}
 			})
 		})

@@ -1,3 +1,243 @@
-<p>
-  view-invoice works!
-</p>
+<p class="mat-h4">Invoice Summary</p>
+
+<br>
+
+<mat-progress-bar *ngIf="!invoice && !error" mode="indeterminate"></mat-progress-bar>
+
+<div *ngIf="invoice" fxLayout="column" fxLayoutGap="25px">
+
+    <div fxLayout.xs="column" fxLayout.gt-sm="row" fxLayoutGap="25px">
+
+        <div fxFlex fxLayout="column">
+            
+            <mat-form-field appearance="outline" floatLabel="always">
+
+                <mat-label>ID</mat-label>
+
+                <input matInput [(ngModel)]="invoice.id" placeholder="ID">
+
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" floatLabel="always">
+
+                <mat-label>Reference</mat-label>
+
+                <input matInput [(ngModel)]="invoice.reference" placeholder="Reference">
+
+            </mat-form-field>
+
+        </div>
+
+        <div fxFlex fxLayout="column">
+            
+            <mat-form-field appearance="outline" floatLabel="always">
+
+                <mat-label>Bill to</mat-label>
+                
+                <mat-select [(ngModel)]="invoice.contactId" placeholder="Contact">
+
+                    <mat-option value="new">New contact...</mat-option>
+
+                    <mat-option value="001" selected>Nick Cook Ltd</mat-option>
+
+                    <mat-option value="002">Nick Cook Ltd</mat-option>
+
+                    <mat-option value="003">Nick Cook Ltd</mat-option>
+
+                </mat-select>
+
+            </mat-form-field>
+
+            <a class="link-secondary">Update Contact</a>
+
+        </div>
+
+        <div fxFlex fxLayout="column">
+            
+            <mat-form-field appearance="outline" floatLabel="always">
+
+                <mat-label>Date</mat-label>
+                
+                <input matInput [(ngModel)]="invoice.date" placeholder="DD/MM/YYYY">
+
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" floatLabel="always">
+
+                <mat-label>Sale Date</mat-label>
+                
+                <input matInput [(ngModel)]="invoice.saleDate" [matDatepicker]="saleDate" placeholder="DD/MM/YYYY">
+
+                <mat-datepicker-toggle matSuffix [for]="saleDate"></mat-datepicker-toggle>
+
+                <mat-datepicker #saleDate [startAt]="invoice.date"></mat-datepicker>
+
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" floatLabel="always">
+
+                <mat-label>Due Date</mat-label>
+                
+                <input matInput [(ngModel)]="invoice.dueDate" placeholder="DD/MM/YYYY">
+
+            </mat-form-field>
+
+        </div>
+
+    </div>
+
+    <p class="mat-body">Items</p>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z0" width="100%">
+        
+        <ng-container matColumnDef="description">
+            
+            <th mat-header-cell *matHeaderCellDef>Description</th>
+            
+            <td mat-cell *matCellDef="let item" width="20%">{{item.description}}</td>
+
+            <td mat-footer-cell *matFooterCellDef></td>
+            
+        </ng-container>
+        
+        <ng-container matColumnDef="type">
+            
+            <th mat-header-cell *matHeaderCellDef>Type</th>
+            
+            <td mat-cell *matCellDef="let item">{{item.type | titlecase}}</td>
+
+            <td mat-footer-cell *matFooterCellDef></td>
+            
+        </ng-container>
+        
+        <ng-container matColumnDef="unitPrice">
+            
+            <th mat-header-cell *matHeaderCellDef>Unit Price</th>
+            
+            <td mat-cell *matCellDef="let item">{{item.unitPrice | currency: 'GBP'}}</td>
+
+            <td mat-footer-cell *matFooterCellDef></td>
+
+        </ng-container>
+        
+        <ng-container matColumnDef="quantity">
+            
+            <th mat-header-cell *matHeaderCellDef>Quantity</th>
+            
+            <td mat-cell *matCellDef="let item">{{item.quantity}}</td>
+
+            <td mat-footer-cell *matFooterCellDef></td>
+            
+        </ng-container>
+        
+        <ng-container matColumnDef="subtotal">
+            
+            <th mat-header-cell *matHeaderCellDef>Subtotal</th>
+            
+            <td mat-cell *matCellDef="let item">{{item.subtotal}}</td>
+
+            <td mat-footer-cell *matFooterCellDef>{{invoice.subtotal | currency: 'GBP'}}</td>
+            
+        </ng-container>
+        
+        <ng-container matColumnDef="taxCodeName">
+            
+            <th mat-header-cell *matHeaderCellDef>Tax Code</th>
+            
+            <td mat-cell *matCellDef="let item">{{item.taxCodeName | titlecase}}</td>
+
+            <td mat-footer-cell *matFooterCellDef></td>
+            
+        </ng-container>
+        
+        <ng-container matColumnDef="tax">
+            
+            <th mat-header-cell *matHeaderCellDef>Tax</th>
+            
+            <td mat-cell *matCellDef="let item">{{item.tax | currency: 'GBP'}}</td>
+
+            <td mat-footer-cell *matFooterCellDef>{{invoice.tax | currency: 'GBP'}}</td>
+            
+        </ng-container>
+        
+        <ng-container matColumnDef="total">
+            
+            <th mat-header-cell *matHeaderCellDef>Total</th>
+            
+            <td mat-cell *matCellDef="let item">{{item.total | currency: 'GBP'}}</td>
+
+            <td mat-footer-cell *matFooterCellDef>{{invoice.total | currency: 'GBP'}}</td>
+            
+        </ng-container>
+        
+        <ng-container matColumnDef="notes">
+            
+            <th mat-header-cell *matHeaderCellDef>Notes</th>
+            
+            <td mat-cell *matCellDef="let item" width="20%"></td>
+
+            <td mat-footer-cell *matFooterCellDef></td>
+            
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+        
+        <tr mat-row *matRowDef="let item; columns: tableColumns" (click)="editItem(item)">
+
+        <tr mat-footer-row *matFooterRowDef="tableColumns"></tr>
+    
+    </table>
+
+    <div fxFlex fxLayout="row" fxLayoutAlign="end start">
+        
+        <div id="invoiceTotals" fxLayout="column" fxLayoutGap="15px">
+            
+            <div class="invoiceTotals__total">
+
+                <p>Subtotal</p>
+
+                <p>{{invoice.subtotal | currency: 'GBP'}}</p>
+
+            </div>
+            
+            <div class="invoiceTotals__total">
+
+                <p>Tax</p>
+
+                <p>{{invoice.tax | currency: 'GBP'}}</p>
+
+            </div>
+            
+            <div class="invoiceTotals__total">
+
+                <p>Total</p>
+
+                <p class="mat-body-strong">{{invoice.total | currency: 'GBP'}}</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <mat-toolbar fxLayout="row" fxLayoutAlign="space-between center">
+
+        <div class="toolbar__content--left">
+
+            <button mat-button routerLink="/invoices/all">Back to All Invoices</button>
+
+            <button mat-raised-button (click)="addItem()">Add Item</button>
+
+        </div>
+
+        <div class="toolbar__content--right">
+
+            <button mat-raised-button (click)="saveInvoice()">Save</button>
+
+            <button mat-raised-button (click)="sendInvoice()">Send</button>
+
+        </div>
+
+    </mat-toolbar>
+
+</div>

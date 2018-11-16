@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 
 // Angular Resources
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -14,8 +15,9 @@ import { CanActivateRouteGuard } from '@app/can-activate-route.guard';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
-// Moment
+// MomentJS
 import * as _moment from 'moment';
+import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 
 // Lodash
 import * as _ from 'lodash';
@@ -43,6 +45,18 @@ import { TaxCodesService } from '@app/services/tax-codes/tax-codes.service';
 import { NominalsService } from '@app/services/nominals/nominals.service';
 import { NotificationsService } from '@app/services/notifications/notifications.service';
 import { UsersService } from '@app/services/users/users.service';
+
+const UK_DATE_FORMAT = {
+	parse: {
+		dateInput: 'LL',
+	},
+	display: {
+		dateInput: 'LL',
+		monthYearLabel: 'MMM YYYY',
+		dateA11yLabel: 'LL',
+		monthYearA11yLabel: 'MMMM YYYY',
+	}
+}
 
 @NgModule({
 
@@ -113,7 +127,20 @@ import { UsersService } from '@app/services/users/users.service';
 		TaxCodesService,
 		NominalsService,
 		NotificationsService,
-		UsersService
+		UsersService,
+
+		// Locale
+		{
+			provide: DateAdapter,
+			useClass: MomentDateAdapter,
+			deps: [
+				MAT_DATE_LOCALE
+			]
+		},
+		{
+			provide: MAT_DATE_FORMATS,
+			useValue: UK_DATE_FORMAT
+		}
 	]
 })
 

@@ -8,12 +8,8 @@ a, p, h1, h2, h3, h4, h5 {
     margin: 0;
 }
 
-.font-weight-semibold {
-    font-weight: 500;
-}
-
-.font-weight-bold {
-    font-weight: 700;
+p {
+    font-size: 13px;
 }
 
 a {
@@ -26,4 +22,8 @@ a.material-icons {
 
 .text-muted {
     color: rgba(0, 0, 0, 0.6);
+}
+
+.mat-body-strong {
+    font-size: 13px;
 }

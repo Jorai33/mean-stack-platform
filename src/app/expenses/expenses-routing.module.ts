@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, RouterLinkActive } from '@angular/router';
+import { RouterModule, Routes, RouterLinkActive, CanActivate } from '@angular/router';
+import { CanActivateRouteGuard } from '@app/can-activate-route.guard';
 
 // Components
 	import { NewExpenseComponent } from './new-expense/new-expense.component';
@@ -10,19 +11,23 @@ import { RouterModule, Routes, RouterLinkActive } from '@angular/router';
 const routes: Routes = [
 	{
 		path: 'expenses/all',
-		component: AllExpensesComponent
+		component: AllExpensesComponent,
+		canActivate: [CanActivateRouteGuard]
 	},
 	{
 		path: 'expenses/new',
-		component: NewExpenseComponent
+		component: NewExpenseComponent,
+		canActivate: [CanActivateRouteGuard]
 	},
 	{
 		path: 'expenses/new-mileage',
-		component: NewMileageComponent
+		component: NewMileageComponent,
+		canActivate: [CanActivateRouteGuard]
 	},
 	{
 		path: 'expenses/:id',
-		component: ViewExpenseComponent
+		component: ViewExpenseComponent,
+		canActivate: [CanActivateRouteGuard]
 	}
 ]
 

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from "@angular/router";
+import { MatSnackBar } from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class NotificationsService {
       unreadNotifications: any[];
       selectedNotification;
 
-	constructor(private router: Router) {
+	constructor(private router: Router, private snackbar: MatSnackBar) {
 		this.notifications = [
 			{
                         id: 1,
@@ -53,6 +54,12 @@ export class NotificationsService {
 
       updateUnreadNotifications() {
             this.unreadNotifications = this.notifications.filter(notification => !notification.read);
+      }
+
+      createAlert(message: string, action: string) {
+            this.snackbar.open(message, action, {
+                  duration: 3000
+            })
       }
       
 }

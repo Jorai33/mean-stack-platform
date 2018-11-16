@@ -1,47 +1,51 @@
-<div id="login-container" fxLayoutAlign="center center" class="col-xs-12">
+<div id="login-container" fxLayoutAlign="center center">
 
-	<form #loginForm="ngForm" fxLayout="column" fxLayoutGap="50px" class="col-xs-12 col-sm-6 col-md-4">
-		
-		<div fxLayout="column" fxLayoutGap="15px" fxLayoutAlign="start start">
+	<mat-card class="mat-elevation-z1" fxFlex.xs="80vw" fxFlex.sm="40vw" fxFlex.gt-sm="25vw">
 
-			<h3 class="form-title">Email Sign In</h3>
-
-			<h4 class="form-subtitle">Enter your email address and password below</h4>
+		<form #loginForm="ngForm" fxLayout="column" fxLayoutGap="50px">
 			
-		</div>
-		
-		<div class="col-xs-12" fxLayout="column" fxLayoutGap="15px" fxLayoutAlign="center center">
-
-			<mat-form-field class="width-100pc">
-
-				<input matInput [(ngModel)]="email" name="email" type="email" placeholder="Email Address" required>
-
-			</mat-form-field>
-
-			<mat-form-field class="width-100pc">
-
-				<input matInput [(ngModel)]="password" name="password" type="password" placeholder="Password" required>
-
-			</mat-form-field>
-
-			<button mat-raised-button (click)="authService.signIn(email, password)" type="submit" class="primary width-100pc">Sign In</button>
+			<div fxLayout="column" fxLayoutGap="15px" fxLayoutAlign="start start">
+				
+				<mat-card-title>Sign In</mat-card-title>
+				
+				<mat-card-subtitle>Enter you email and password below</mat-card-subtitle>
+				
+			</div>
 			
-		</div>
-		
-		<div fxLayoutAlign="center center">
-		
-		    <a (click)="authService.signInGoogle()" class="secondary-link">Sign in with Google</a>
-		
-        </div>
+			<div fxLayout="column" fxLayoutGap="15px" fxLayoutAlign="center center">
+
+				<mat-form-field>
+
+					<input matInput [(ngModel)]="email" name="email" type="email" placeholder="Email Address" required>
+
+				</mat-form-field>
+
+				<mat-form-field>
+
+					<input matInput [(ngModel)]="password" name="password" type="password" placeholder="Password" required>
+
+				</mat-form-field>
+
+				<button id="signIn" mat-raised-button (click)="auth.signIn(email, password)" type="submit">Sign In</button>
+				
+			</div>
 			
-		<div fxLayout="row" fxLayoutAlign="space-between center">
+			<div fxLayoutAlign="center center">
+			
+				<a (click)="auth.signInGoogle()" class="link-secondary">Sign in with Google</a>
+			
+			</div>
+				
+			<div fxLayout="row" fxLayoutAlign="space-between center">
 
-			<a routerLink="/dashboard" class="secondary-link">Forgotten your password?</a>
+				<a routerLink="/resetPassword" class="link-secondary">Forgotten your password?</a>
 
-			<a routerLink="/register" class="secondary-link">Register</a>
+				<a routerLink="/register" class="link-secondary">Register</a>
 
-		</div>
+			</div>
 
-	</form>
+		</form>
+
+	</mat-card>
 	
 </div>

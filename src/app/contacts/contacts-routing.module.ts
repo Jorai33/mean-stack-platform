@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, RouterLinkActive } from '@angular/router';
+import { CanActivateRouteGuard } from '@app/can-activate-route.guard';
 
 // Components
 	import { NewContactComponent } from './new-contact/new-contact.component';
@@ -9,15 +10,18 @@ import { RouterModule, Routes, RouterLinkActive } from '@angular/router';
 const routes: Routes = [
 	{
 		path: 'contacts/all',
-		component: AllContactsComponent
+		component: AllContactsComponent,
+		canActivate: [CanActivateRouteGuard]
 	},
 	{
 		path: 'contacts/new',
-		component: NewContactComponent
+		component: NewContactComponent,
+		canActivate: [CanActivateRouteGuard]
 	},
 	{
 		path: 'contacts/:id',
-		component: ViewContactComponent
+		component: ViewContactComponent,
+		canActivate: [CanActivateRouteGuard]
 	}
 ]
 
