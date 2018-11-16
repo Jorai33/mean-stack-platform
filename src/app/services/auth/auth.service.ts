@@ -23,7 +23,7 @@ export class AuthService {
 
 	constructor(private router: Router) {
         const poolData = {
-            UserPoolId: '*****',
+            UserPoolId: 'eu-west-1_TJD6cDGjV',
             ClientId: credentials.appClientId
 		}
 		
@@ -58,7 +58,7 @@ export class AuthService {
 				AWS.config.credentials = new AWS.CognitoIdentityCredentials({
 					IdentityPoolId: this.userPool.UserPoolId,
 					Logins: {
-						'cognito-idp.eu-west-1.amazonaws.com/*****': res.getIdToken().getJwtToken()
+						'cognito-idp.eu-west-1.amazonaws.com/eu-west-1_TJD6cDGjV': res.getIdToken().getJwtToken()
 					}
 				})
 				

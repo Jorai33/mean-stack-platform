@@ -58,7 +58,15 @@
 
                 <mat-label>Date</mat-label>
                 
-                <input matInput [(ngModel)]="invoice.date" placeholder="DD/MM/YYYY">
+                <input matInput [(ngModel)]="invoice.date" [matDatepicker]="date" placeholder="DD/MM/YYYY" disabled>
+
+                <mat-datepicker-toggle matSuffix [for]="date">
+
+                    <mat-icon matDatepickerToggleIcon></mat-icon>
+                    
+                </mat-datepicker-toggle>
+
+                <mat-datepicker #date></mat-datepicker>
 
             </mat-form-field>
             
@@ -78,7 +86,11 @@
 
                 <mat-label>Due Date</mat-label>
                 
-                <input matInput [(ngModel)]="invoice.dueDate" placeholder="DD/MM/YYYY">
+                <input matInput [(ngModel)]="invoice.dueDate" [matDatepicker]="dueDate" placeholder="DD/MM/YYYY">
+
+                <mat-datepicker-toggle matSuffix [for]="dueDate"></mat-datepicker-toggle>
+
+                <mat-datepicker #dueDate [startAt]="invoice.saleDate"></mat-datepicker>
 
             </mat-form-field>
 
@@ -224,7 +236,7 @@
 
         <div class="toolbar__content--left">
 
-            <button mat-button routerLink="/invoices/all">Back to All Invoices</button>
+            <button mat-button routerLink="/invoices/all">Back to List</button>
 
             <button mat-raised-button (click)="addItem()">Add Item</button>
 
