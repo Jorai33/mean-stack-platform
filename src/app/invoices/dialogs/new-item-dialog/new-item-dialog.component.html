@@ -1,0 +1,91 @@
+<p class="mat-h4">New Item</p>
+
+<br>
+
+<div mat-dialog-content>
+
+	<form [formGroup]="newItemForm" fxLayout="column" fxLayoutGap="15px">
+                    
+		<mat-form-field appearance="outline" floatLabel="always">
+
+			<mat-label>Description</mat-label>
+
+			<textarea matInput formControlName="description" placeholder="Description"></textarea>
+
+			<mat-error *ngIf="newItemForm.controls.description.errors">Description is required</mat-error>
+
+		</mat-form-field>
+                    
+		<mat-form-field appearance="outline" floatLabel="always">
+
+			<mat-label>Type</mat-label>
+                        
+			<mat-select formControlName="type" placeholder="Type">
+				 
+				<mat-option *ngFor="let itemType of itemTypes" [value]="itemType">{{itemType | titlecase}}</mat-option>
+
+			</mat-select>
+
+			<mat-error *ngIf="newItemForm.controls.type.errors">Type is required</mat-error>
+
+		</mat-form-field>
+
+		<div fxLayout="row" fxLayoutGap="25px">
+                    
+			<mat-form-field appearance="outline" floatLabel="always">
+
+				<mat-label>Quantity</mat-label>
+
+				<input matInput formControlName="quantity" placeholder="Quantity" appParseInt>
+
+				<mat-error *ngIf="newItemForm.controls.quantity.errors">Quantity is required</mat-error>
+
+			</mat-form-field>
+						
+			<mat-form-field appearance="outline" floatLabel="always">
+
+				<mat-label>Unit Price</mat-label>
+
+				<input matInput formControlName="unitPrice" placeholder="Unit Price" appParseFloat>
+
+				<mat-error *ngIf="newItemForm.controls.unitPrice.errors">Unit Price is required</mat-error>
+
+			</mat-form-field>
+
+		</div>
+                    
+		<mat-form-field appearance="outline" floatLabel="always">
+
+			<mat-label>Tax Code</mat-label>
+                        
+			<mat-select formControlName="taxCode" placeholder="Tax Code">
+				 
+				<mat-option *ngFor="let taxCode of taxCodes" [value]="taxCode.rate">{{taxCode.name}}</mat-option>
+
+			</mat-select>
+
+			<mat-error *ngIf="newItemForm.controls.taxCode.errors">Tax Code is required</mat-error>
+
+		</mat-form-field>
+						
+		<mat-form-field appearance="outline" floatLabel="always">
+
+			<mat-label>Notes</mat-label>
+
+			<textarea matInput formControlName="notes" placeholder="Notes"></textarea>
+
+			<mat-error *ngIf="newItemForm.controls.notes.errors">Notes is required</mat-error>
+
+		</mat-form-field>
+
+	</form>
+
+</div>
+
+<mat-dialog-actions align="end">
+
+	<button mat-button mat-dialog-close>Cancel</button>
+
+	<button mat-raised-button (click)="addItem()" [disabled]="!newItemForm.valid">Add Item</button>
+
+</mat-dialog-actions>

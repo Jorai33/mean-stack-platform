@@ -27,7 +27,6 @@ export class ViewInvoiceComponent implements OnInit {
 		'unitPrice',
 		'quantity',
 		'subtotal',
-		'taxCodeName',
 		'tax',
 		'total',
 		'notes'

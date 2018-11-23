@@ -5,7 +5,7 @@ export default interface InvoiceItem {
     unitPrice: number,
     quantity: number,
     subtotal: number,
-    taxCodeName: string,
+    taxCode: number,
     taxRate: number,
     tax: number,
     total: number,

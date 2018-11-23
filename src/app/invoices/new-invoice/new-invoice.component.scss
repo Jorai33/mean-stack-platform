@@ -1,0 +1,14 @@
+#invoiceTotals {
+    padding-bottom: 75px;
+
+    .invoiceTotals__total {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        width: 25vw;
+
+        p:first-child {
+            font-weight: 500;
+        }
+    }
+}

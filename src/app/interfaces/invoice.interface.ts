@@ -10,6 +10,7 @@ export default interface Invoice {
     items: InvoiceItem[],
     notes: string,
     subtotal: number,
+    taxCode: number,
     tax: number,
     total: number,
     outstanding: number,

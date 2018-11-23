@@ -152,16 +152,6 @@
             
         </ng-container>
         
-        <ng-container matColumnDef="taxCodeName">
-            
-            <th mat-header-cell *matHeaderCellDef>Tax Code</th>
-            
-            <td mat-cell *matCellDef="let item">{{item.taxCodeName | titlecase}}</td>
-
-            <td mat-footer-cell *matFooterCellDef></td>
-            
-        </ng-container>
-        
         <ng-container matColumnDef="tax">
             
             <th mat-header-cell *matHeaderCellDef>Tax</th>
@@ -232,7 +222,7 @@
 
     </div>
 
-    <mat-toolbar fxLayout="row" fxLayoutAlign="space-between center">
+    <mat-toolbar fxLayout="row" fxLayoutAlign="space-between center" class="toolbar--bottom">
 
         <div class="toolbar__content--left">
 

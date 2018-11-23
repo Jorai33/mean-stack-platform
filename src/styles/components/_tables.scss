@@ -1,5 +1,9 @@
 table {
     border: 1px solid rgba(0, 0, 0, 0.12);
+
+    &.hasPaginator {
+        border-bottom: none;
+    }
 }
 
 th.mat-header-cell:first-of-type {
@@ -27,4 +31,9 @@ td.mat-footer-cell {
     padding-bottom: 10px !important;
     font-size: 13px;
     font-weight: 500;
+}
+
+mat-paginator {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-top: none;
 }

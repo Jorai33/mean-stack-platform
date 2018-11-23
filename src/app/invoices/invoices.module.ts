@@ -14,6 +14,8 @@ import { MaterialModule } from '@app/material.module';
 	import { ViewInvoiceComponent } from './view-invoice/view-invoice.component';
 	// All Invoices
 	import { AllInvoicesComponent } from './all-invoices/all-invoices.component';
+	// Dialogs
+	import { NewItemDialogComponent } from './dialogs/new-item-dialog/new-item-dialog.component';
 
 @NgModule({
 
@@ -31,11 +33,14 @@ import { MaterialModule } from '@app/material.module';
 			// View Invoice
 			ViewInvoiceComponent,
 			// All Invoices
-			AllInvoicesComponent
+			AllInvoicesComponent,
+			// Dialogs
+			NewItemDialogComponent
 	],
 	
 	entryComponents: [
-            // Dialogs
+			// Dialogs
+			NewItemDialogComponent
 	]
 })
 

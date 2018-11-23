@@ -12,26 +12,3 @@
         }
     }
 }
-
-mat-toolbar {
-    position: fixed;
-    top: calc(100% - 60px);
-    bottom: 0;
-    right: 0;
-    width: 85vw;
-    padding: 20px 35px 20px 20px;
-    background: #fff;
-    border-top: solid 1px rgba(0, 0, 0, 0.12);
-    
-    .toolbar__content--left {
-        button:not(:last-of-type) {
-            margin-right: 10px;
-        }
-    }
-    
-    .toolbar__content--right {
-        button:not(:first-of-type) {
-            margin-left: 10px;
-        }
-    }
-}

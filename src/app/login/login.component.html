@@ -1,51 +1,51 @@
 <div id="login-container" fxLayoutAlign="center center">
 
-	<mat-card class="mat-elevation-z1" fxFlex.xs="80vw" fxFlex.sm="40vw" fxFlex.gt-sm="25vw">
-
-		<form #loginForm="ngForm" fxLayout="column" fxLayoutGap="50px">
-			
-			<div fxLayout="column" fxLayoutGap="15px" fxLayoutAlign="start start">
-				
-				<mat-card-title>Sign In</mat-card-title>
-				
-				<mat-card-subtitle>Enter you email and password below</mat-card-subtitle>
-				
-			</div>
-			
-			<div fxLayout="column" fxLayoutGap="15px" fxLayoutAlign="center center">
-
-				<mat-form-field>
-
-					<input matInput [(ngModel)]="email" name="email" type="email" placeholder="Email Address" required>
-
-				</mat-form-field>
-
-				<mat-form-field>
-
-					<input matInput [(ngModel)]="password" name="password" type="password" placeholder="Password" required>
-
-				</mat-form-field>
-
-				<button id="signIn" mat-raised-button (click)="auth.signIn(email, password)" type="submit">Sign In</button>
-				
-			</div>
-			
-			<div fxLayoutAlign="center center">
-			
-				<a (click)="auth.signInGoogle()" class="link-secondary">Sign in with Google</a>
-			
-			</div>
-				
-			<div fxLayout="row" fxLayoutAlign="space-between center">
-
-				<a routerLink="/resetPassword" class="link-secondary">Forgotten your password?</a>
-
-				<a routerLink="/register" class="link-secondary">Register</a>
-
-			</div>
-
-		</form>
-
-	</mat-card>
-	
-</div>
+    <mat-card class="mat-elevation-z1" fxFlex.xs="80vw" fxFlex.sm="40vw" fxFlex.gt-sm="25vw">
+  
+      <form #loginForm="ngForm" fxLayout="column" fxLayoutGap="50px">
+        
+        <div fxLayout="column" fxLayoutGap="15px" fxLayoutAlign="start start">
+          
+          <mat-card-title>Sign In</mat-card-title>
+          
+          <mat-card-subtitle>Enter you email and password below</mat-card-subtitle>
+          
+        </div>
+        
+        <div fxLayout="column" fxLayoutGap="15px" fxLayoutAlign="center center">
+  
+          <mat-form-field>
+  
+            <input matInput [(ngModel)]="email" name="email" type="email" placeholder="Email Address" required>
+  
+          </mat-form-field>
+  
+          <mat-form-field>
+  
+            <input matInput [(ngModel)]="password" name="password" type="password" placeholder="Password" required>
+  
+          </mat-form-field>
+  
+          <button id="signIn" mat-raised-button (click)="auth.signIn(email, password)" type="submit">Sign In</button>
+          
+        </div>
+        
+        <div fxLayoutAlign="center center">
+        
+          <a (click)="auth.signInGoogle()" class="link-secondary">Sign in with Google</a>
+        
+        </div>
+          
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+  
+          <a routerLink="/resetPassword" class="link-secondary">Forgotten your password?</a>
+  
+          <a routerLink="/register" class="link-secondary">Register</a>
+  
+        </div>
+  
+      </form>
+  
+    </mat-card>
+    
+  </div>
