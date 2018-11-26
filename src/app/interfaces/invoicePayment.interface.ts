@@ -3,5 +3,5 @@ export default interface InvoicePayment {
     invoiceId: string,
     date: string,
     amount: number,
-    notes: string
+    notes?: string
 }

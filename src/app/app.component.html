@@ -72,13 +72,13 @@
               
             Notifications 
             
-            <span class="mat-small">({{notifs.unreadNotifications.length}} unread)</span>
+            <span class="mat-small">({{notificationsService.unreadNotifications.length}} unread)</span>
       
       </p>
 
         <mat-nav-list dense>
 
-            <mat-list-item (click)="notifs.markAllRead()" *ngIf="notifs.unreadNotifications.length">
+            <mat-list-item (click)="notificationsService.markAllRead()" *ngIf="notificationsService.unreadNotifications.length">
 
                   <a matLine class="mat-small">
                         
@@ -102,7 +102,7 @@
 
             </mat-list-item>
 
-            <mat-list-item *ngFor="let notification of notifs.unreadNotifications" (click)="notifs.viewNotification(notification); notificationsMenu.toggle()">
+            <mat-list-item *ngFor="let notification of notificationsService.unreadNotifications" (click)="notificationsService.viewNotification(notification); notificationsMenu.toggle()">
 
                   <p matLine class="mat-body-strong">{{notification.title}}</p>
 
@@ -130,13 +130,13 @@
 
             <div class="toolbar-right">
 
-                <button mat-icon-button (click)="notificationsMenu.toggle()" *ngIf="notifs.notifications.length" matBadge={{notifs.unreadNotifications.length}} matBadgeSize="small">
+                <button mat-icon-button (click)="notificationsMenu.toggle()" *ngIf="notificationsService.notifications.length" matBadge={{notificationsService.unreadNotifications.length}} matBadgeSize="small">
                     
                     <mat-icon>notifications</mat-icon>
 
                 </button>
 
-                <button mat-icon-button (click)="notificationsMenu.toggle()" *ngIf="!notifs.notifications.length">
+                <button mat-icon-button (click)="notificationsMenu.toggle()" *ngIf="!notificationsService.notifications.length">
 
                     <mat-icon>notifications_none</mat-icon>
 

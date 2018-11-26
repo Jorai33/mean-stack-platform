@@ -56,22 +56,6 @@
             
             <mat-form-field appearance="outline" floatLabel="always">
 
-                <mat-label>Date</mat-label>
-                
-                <input matInput [(ngModel)]="invoice.date" [matDatepicker]="date" placeholder="DD/MM/YYYY" disabled>
-
-                <mat-datepicker-toggle matSuffix [for]="date">
-
-                    <mat-icon matDatepickerToggleIcon></mat-icon>
-                    
-                </mat-datepicker-toggle>
-
-                <mat-datepicker #date></mat-datepicker>
-
-            </mat-form-field>
-            
-            <mat-form-field appearance="outline" floatLabel="always">
-
                 <mat-label>Sale Date</mat-label>
                 
                 <input matInput [(ngModel)]="invoice.saleDate" [matDatepicker]="saleDate" placeholder="DD/MM/YYYY">
@@ -146,7 +130,7 @@
             
             <th mat-header-cell *matHeaderCellDef>Subtotal</th>
             
-            <td mat-cell *matCellDef="let item">{{item.subtotal}}</td>
+            <td mat-cell *matCellDef="let item">{{item.subtotal | currency: 'GBP'}}</td>
 
             <td mat-footer-cell *matFooterCellDef>{{invoice.subtotal | currency: 'GBP'}}</td>
             
@@ -176,7 +160,7 @@
             
             <th mat-header-cell *matHeaderCellDef>Notes</th>
             
-            <td mat-cell *matCellDef="let item" width="20%"></td>
+            <td mat-cell *matCellDef="let item" width="20%">{{item.notes}}</td>
 
             <td mat-footer-cell *matFooterCellDef></td>
             

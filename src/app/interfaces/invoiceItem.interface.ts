@@ -9,5 +9,5 @@ export default interface InvoiceItem {
     taxRate: number,
     tax: number,
     total: number,
-    notes: string
+    notes?: string
 }

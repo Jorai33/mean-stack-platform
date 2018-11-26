@@ -24,9 +24,11 @@ export class AllInvoicesComponent implements OnInit {
 	dataSource = new MatTableDataSource<any>();
 	tableColumns = [
 		'id',
-		'number',
 		'reference',
-		'date',
+		'saleDate',
+		'dueDate',
+		'subtotal',
+		'tax',
 		'total',
 		'status'
 	]
@@ -65,6 +67,16 @@ export class AllInvoicesComponent implements OnInit {
 
 	viewInvoice(invoice) {
 		this.router.navigateByUrl(`invoices/${invoice.id}`)
+	}
+
+	getInvoiceStatus(invoice) {
+		if (invoice.outstanding == 0) {
+			return 'paid';
+		} else if (moment(invoice.dueDate).isAfter(moment())) {
+			return 'open';
+		} else {
+			return 'overdue';
+		}
 	}
 
 }

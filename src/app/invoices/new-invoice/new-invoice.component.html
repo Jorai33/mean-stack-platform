@@ -58,25 +58,9 @@
                     
                     <mat-form-field appearance="outline" floatLabel="always">
 
-                        <mat-label>Date</mat-label>
-                        
-                        <input matInput formControlName="date" [matDatepicker]="selectDate" placeholder="DD/MM/YYYY">
-
-                        <mat-datepicker-toggle matSuffix [for]="selectDate"></mat-datepicker-toggle>
-
-                        <mat-datepicker #selectDate></mat-datepicker>
-                            
-                        <mat-error *ngIf="form.date.errors.required">Date is required</mat-error>
-                            
-                        <mat-error *ngIf="form.date.errors.validDate">Invalid date</mat-error>
-
-                    </mat-form-field>
-                    
-                    <mat-form-field appearance="outline" floatLabel="always">
-
                         <mat-label>Sale Date</mat-label>
                         
-                        <input matInput formControlName="saleDate" [matDatepicker]="saleDate" placeholder="DD/MM/YYYY">
+                        <input matInput formControlName="saleDate" [matDatepicker]="saleDate" placeholder="DD/MM/YYYY" (dateInput)="onDateInput('saleDate', $event)">
 
                         <mat-datepicker-toggle matSuffix [for]="saleDate"></mat-datepicker-toggle>
 
@@ -90,7 +74,7 @@
 
                         <mat-label>Due Date</mat-label>
                         
-                        <input matInput formControlName="dueDate" [matDatepicker]="dueDate" placeholder="DD/MM/YYYY">
+                        <input matInput formControlName="dueDate" [matDatepicker]="dueDate" placeholder="DD/MM/YYYY" (dateInput)="onDateInput('dueDate', $event)">
 
                         <mat-datepicker-toggle matSuffix [for]="dueDate"></mat-datepicker-toggle>
 

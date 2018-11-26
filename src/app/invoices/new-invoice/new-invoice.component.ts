@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable, from } from 'rxjs';
 import { MatPaginator, MatSort, MatTableDataSource, MatDialog, MatDialogRef, MatDatepickerInputEvent } from '@angular/material';
@@ -6,6 +7,8 @@ import * as moment from 'moment';
 
 import { DataService } from '@app/services/data/data.service';
 import { ContactsService } from '@app/services/contacts/contacts.service';
+import { InvoicesService } from '@app/services/invoices/invoices.service';
+import { NotificationsService } from '@app/services/notifications/notifications.service';
 
 // import { NewContactDialogComponent } from './dialogs/new-contact-dialog/new-contact-dialog.component';
 import { NewItemDialogComponent } from '@app/invoices/dialogs/new-item-dialog/new-item-dialog.component';
@@ -13,7 +16,7 @@ import { NewItemDialogComponent } from '@app/invoices/dialogs/new-item-dialog/ne
 import Invoice from '@app/interfaces/invoice.interface';
 import InvoiceItem from '@app/interfaces/invoiceItem.interface';
 
-import ValidateDate from '@app/validators/date.validator';
+import { DateValidator } from '@app/validators/date.validator';
 
 @Component({
 	selector: 'app-new-invoice',
@@ -40,35 +43,33 @@ export class NewInvoiceComponent implements OnInit {
 
 	newItemDialogRef: MatDialogRef<NewItemDialogComponent>;
 	
-	subtotal: Number;
-	tax: Number;
-	total: Number;
+	subtotal: number;
+	tax: number;
+	total: number;
 
-	constructor(public data: DataService, public contactsService: ContactsService, private formBuilder: FormBuilder, private dialog: MatDialog) {
+	constructor(private router: Router, public data: DataService, public invoicesService: InvoicesService, public contactsService: ContactsService, private notificationsService: NotificationsService, private formBuilder: FormBuilder, private dialog: MatDialog) {
 		this.items = [];
 		this.itemsData.data = this.items;
 
 		this.invoiceForm = this.formBuilder.group({
 			id: ['', Validators.required],
 			reference: ['', Validators.required],
-			contactId: ['', Validators.required],
-			date: [
+			saleDate: [
 				'',
 				[
 					Validators.required,
-					ValidateDate
+					DateValidator.validDate
 				]
-			],
-			saleDate: [
-				'',
-				Validators.required,
-				ValidateDate
 			],
 			dueDate: [
 				'',
-				Validators.required,
-				ValidateDate
-			]
+				[
+					Validators.required,
+					DateValidator.validDate
+				]
+			],
+			contactId: ['', Validators.required],
+			notes: [null, Validators.maxLength(200)]
 		})
 
 		this.subtotal = 0;
@@ -98,9 +99,7 @@ export class NewInvoiceComponent implements OnInit {
 
 		this.newItemDialogRef.afterClosed().subscribe(item => {
 			if (item) {
-				console.log('Item added:', item);
 				this.items.push(item);
-				// TODO: Use observable itemsData
 				this.itemsData.data = this.items;
 
 				this.subtotal += item.subtotal;
@@ -111,16 +110,68 @@ export class NewInvoiceComponent implements OnInit {
 	}
 
 	deleteItem() {
-		// onDateInput()
+		// TODO:
 	}
 
 	editItem() {
-		// onDateInput()
+		// TODO:
 	}
 
-	onDateKeyup(controlName, $event) {
-		this.invoiceForm.controls[controlName].setValue(moment($event.target.value).toISOString());
-		console.log(`invoiceForm.controls.${controlName}.value:`, this.invoiceForm.controls[controlName].value);
+	onDateInput(controlName, event) {
+		this.invoiceForm.controls[controlName].setValue(moment(event.target.value, 'DD/MM/YYYY').toISOString());
+	}
+	
+	saveInvoice() {
+		this.buildInvoice();
+		
+		if (this.invoice.total < 0) {
+			this.notificationsService.createAlert('Invoice total must be £0.00 or greater', 'Close');
+			return;
+		} else {
+			this.data.putItem('invoices', this.invoice)
+				.then(res => {
+					this.router.navigateByUrl('invoices/all');
+					this.notificationsService.createAlert('Invoice saved', null);
+				})
+				.catch(err => {
+					this.notificationsService.createAlert(`Error saving invoice: ${err.message}`, 'Close');
+				})
+		}
+	}
+
+	saveAndSend() {
+		this.buildInvoice();
+		
+		if (this.invoice.total < 0) {
+			this.notificationsService.createAlert('Invoice total must be £0.00 or greater', 'Close');
+			return;
+		} else {
+			this.data.putItem('invoices', this.invoice)
+				.then(res => {
+					this.notificationsService.createAlert('Invoice saved', null);
+
+					this.invoicesService.sendToContact(this.invoice.contactId)
+						.then(_ => {
+							this.notificationsService.createAlert('Invoice sent to client', null);
+							this.router.navigateByUrl('invoices/all');
+						})
+						.catch(err => {
+							console.error(`Error sending email to contact: ${err.message}`, 'Close');
+						})
+				})
+				.catch(err => {
+					this.notificationsService.createAlert(`Error saving invoice: ${err.message}`, 'Close');
+				})
+		}
+	}
+
+	buildInvoice() {
+		this.invoice = this.invoiceForm.value;
+		this.invoice.items = this.items;
+		this.invoice.subtotal = this.subtotal;
+		this.invoice.tax = this.tax;
+		this.invoice.total = this.total;
+		this.invoice.outstanding = this.total;
 	}
 
 }

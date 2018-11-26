@@ -22,7 +22,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 
 export class AppComponent {
 	
-	constructor(private router: Router, public auth: AuthService, public notifs: NotificationsService, private users: UsersService, private taxCodes: TaxCodesService) {
+	constructor(private router: Router, public auth: AuthService, public notificationsService: NotificationsService, private users: UsersService, private taxCodes: TaxCodesService) {
 		
 	}
     

@@ -1,11 +1,16 @@
-import { AbstractControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import * as moment from 'moment';
 
-export default function ValidateDate(control: AbstractControl) {
-    if (!moment(control.value, 'DD/MM/YYYY').isValid()) {
-        return {
-            validDate: true
+export class DateValidator {
+    static validDate(control: FormControl) {
+        if (control.value) {
+            if (moment(control.value).isValid()) {
+                return true
+            } else {
+                return false;
+            }
+        } else {
+            return (null);
         }
     }
-    return null;
 }

@@ -26,14 +26,12 @@ export class NewItemDialogComponent implements OnInit {
 
 		this.newItemForm = this.formBuilder.group({
 			number: [this.items.length + 1],
-			description: new FormControl('', [Validators.required]),
-			type: new FormControl('', [Validators.required]),
-			quantity: new FormControl('', [Validators.required]),
-			unitPrice: new FormControl('', [
-				Validators.required
-			]),
-			taxCode: new FormControl('', [Validators.required]),
-			notes: new FormControl('', [])
+			description: ['', [Validators.required]],
+			type: ['', [Validators.required]],
+			quantity: ['', [Validators.required]],
+			unitPrice: ['', [Validators.required]],
+			taxCode: ['', [Validators.required]],
+			notes: [null]
 		})
 
 		this.itemTypes = [
@@ -70,6 +68,12 @@ export class NewItemDialogComponent implements OnInit {
 
 		this.item.subtotal = this.item.quantity * this.item.unitPrice;
 		this.item.tax = this.item.subtotal * (this.item.taxCode / 100);
+
+		if (this.item.type === 'discount' || this.item.type === 'deduction') {
+			this.item.subtotal = -Math.abs(this.item.subtotal);
+			this.item.tax = -Math.abs(this.item.tax);
+		}
+
 		this.item.total = this.item.subtotal + this.item.tax;
 
 		this.dialogRef.close(this.item);
