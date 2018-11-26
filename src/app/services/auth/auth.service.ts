@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import * as AWS from 'AWS-sdk';
 import { CognitoIdentityCredentials } from 'AWS-sdk';
 import * as AmazonCognitoIdentity from 'amazon-cognito-identity-js';
-import credentials from '../../../../server/credentials.json';
+import credentials from '@config/credentials.json';
 
 @Injectable({
 	providedIn: 'root'

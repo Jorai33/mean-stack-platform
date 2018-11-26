@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as AWS from 'AWS-sdk';
 import { Observable } from 'rxjs';
-import credentials from '../../../../server/credentials.json';
+import credentials from '@config/credentials.json';
 
 @Injectable({
 	providedIn: 'root'
