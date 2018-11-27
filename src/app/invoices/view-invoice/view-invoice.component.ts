@@ -47,28 +47,26 @@ export class ViewInvoiceComponent implements OnInit {
 			this.invoice = await this.database.getItem('invoices', invoiceId) as Invoice;
 			this.dataSource.data = this.invoice.items;
 			this.dataSource.sort = this.sort;
-			console.log('invoice:', this.invoice);
 		} catch(err) {
 			this.notificationsService.createAlert(`Error retrieving invoice: ${err.message}`, 'Close');
 			this.error = true;
-			console.log('Error:', err);
 		}
 	}
 
 	updateContact() {
-		console.log('ViewInvoice.updateContact()');
+		// TODO:
 	}
 
 	addItem() {
-		console.log('ViewInvoice.addItem()');
+		// TODO:
 	}
 
 	saveInvoice() {
-		console.log('ViewInvoice.saveInvoice()');
+		// TODO:
 	}
 
 	sendInvoice() {
-		console.log('ViewInvoice.sendInvoice()');
+		// TODO:
 	}
 
 }
