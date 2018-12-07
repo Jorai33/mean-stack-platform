@@ -12,9 +12,6 @@ import { NotificationsService } from '@app/services/notifications/notifications.
 export class AuthService {
 
 	uri = 'http://localhost:4000';
-
-	token: string;
-	user;
 	
 	jwtHelper = new JwtHelperService();
 	
@@ -62,10 +59,8 @@ export class AuthService {
 	}
 
 	setSession({token, user}) {
-		this.token = token;
-		this.user = user;
-		localStorage.setItem('token', this.token);
-		localStorage.setItem('user', this.user);
+		localStorage.setItem('token', token);
+		localStorage.setItem('user', user);
 		this.router.navigateByUrl('home');
 		this.notificationsService.createAlert(`Signed in as ${user.email}`, null);
 	}
