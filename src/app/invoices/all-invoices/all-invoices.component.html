@@ -12,9 +12,9 @@
 
 <br>
 
-<mat-progress-bar *ngIf="!dataSource.data.length" mode="indeterminate"></mat-progress-bar>
+<mat-progress-bar *ngIf="!tableData.data.length" mode="indeterminate"></mat-progress-bar>
 
-<table *ngIf="dataSource" mat-table [dataSource]="dataSource" matSort matSortActive="id" matSortDirection="asc" class="mat-elevation-z0" width="100%" class="hasPaginator">
+<table *ngIf="tableData" mat-table [dataSource]="tableData" matSort matSortActive="id" matSortDirection="asc" class="mat-elevation-z0" width="100%" class="hasPaginator">
 	
 	<ng-container matColumnDef="id">
 
@@ -86,4 +86,4 @@
 
 </table>
 
-<mat-paginator *ngIf="dataSource" [length]="dataSource.length" [pageSize]="25" [pageSizeOptions]="[5, 10, 25, 50]" class="mat-elevation-z0"></mat-paginator>
+<mat-paginator *ngIf="tableData" [length]="tableData.length" [pageSize]="25" [pageSizeOptions]="[5, 10, 25, 50]" class="mat-elevation-z0"></mat-paginator>

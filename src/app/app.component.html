@@ -1,4 +1,4 @@
-<mat-sidenav-container class="example-container" *ngIf="auth.isAuthenticated" fxLayout="row">
+<mat-sidenav-container class="example-container" *ngIf="auth.tokenIsValid" fxLayout="row">
 
     <mat-sidenav opened mode="side" fxLayout="column">
         
@@ -114,7 +114,7 @@
 
     </mat-sidenav>
 
-    <mat-toolbar *ngIf="isAuthenticated">
+    <mat-toolbar *ngIf="auth.tokenIsValid">
     
         <mat-toolbar-row class="justify-content-between">
 
@@ -178,7 +178,7 @@
     
     </mat-toolbar>
 
-    <router-outlet *ngIf="auth.isAuthenticated">
+    <router-outlet *ngIf="auth.tokenIsValid">
         
 
 
@@ -186,4 +186,4 @@
 
 </mat-sidenav-container>
 
-<router-outlet *ngIf="!auth.isAuthenticated"></router-outlet>
+<router-outlet *ngIf="!auth.tokenIsValid"></router-outlet>

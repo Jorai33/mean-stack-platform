@@ -13,7 +13,7 @@ export class CanActivateRouteGuard implements CanActivate {
     }
     
     canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-        if (!this.auth.isAuthenticated) {
+        if (!this.auth.tokenIsValid) {
             this.router.navigateByUrl('login');
             return false;
         } else {
@@ -22,7 +22,7 @@ export class CanActivateRouteGuard implements CanActivate {
     }
 
     canActivateChild(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-        if (!this.auth.isAuthenticated) {
+        if (!this.auth.tokenIsValid) {
             this.snackbar.open('You are not signed in', 'Close', {
                 duration: 3000
             })

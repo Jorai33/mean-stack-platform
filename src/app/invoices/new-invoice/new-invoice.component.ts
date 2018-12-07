@@ -128,14 +128,14 @@ export class NewInvoiceComponent implements OnInit {
 			this.notificationsService.createAlert('Invoice total must be £0.00 or greater', 'Close');
 			return;
 		} else {
-			this.data.putItem('invoices', this.invoice)
-				.then(res => {
-					this.router.navigateByUrl('invoices/all');
-					this.notificationsService.createAlert('Invoice saved', null);
-				})
-				.catch(err => {
-					this.notificationsService.createAlert(`Error saving invoice: ${err.message}`, 'Close');
-				})
+			// this.data.putItem('invoices', this.invoice)
+			// 	.then(res => {
+			// 		this.router.navigateByUrl('invoices/all');
+			// 		this.notificationsService.createAlert('Invoice saved', null);
+			// 	})
+			// 	.catch(err => {
+			// 		this.notificationsService.createAlert(`Error saving invoice: ${err.message}`, 'Close');
+			// 	})
 		}
 	}
 
@@ -146,22 +146,22 @@ export class NewInvoiceComponent implements OnInit {
 			this.notificationsService.createAlert('Invoice total must be £0.00 or greater', 'Close');
 			return;
 		} else {
-			this.data.putItem('invoices', this.invoice)
-				.then(res => {
-					this.notificationsService.createAlert('Invoice saved', null);
+			// this.data.putItem('invoices', this.invoice)
+			// 	.then(res => {
+			// 		this.notificationsService.createAlert('Invoice saved', null);
 
-					this.invoicesService.sendToContact(this.invoice.contactId)
-						.then(_ => {
-							this.notificationsService.createAlert('Invoice sent to client', null);
-							this.router.navigateByUrl('invoices/all');
-						})
-						.catch(err => {
-							console.error(`Error sending email to contact: ${err.message}`, 'Close');
-						})
-				})
-				.catch(err => {
-					this.notificationsService.createAlert(`Error saving invoice: ${err.message}`, 'Close');
-				})
+			// 		this.invoicesService.sendToContact(this.invoice.contactId)
+			// 			.then(_ => {
+			// 				this.notificationsService.createAlert('Invoice sent to client', null);
+			// 				this.router.navigateByUrl('invoices/all');
+			// 			})
+			// 			.catch(err => {
+			// 				console.error(`Error sending email to contact: ${err.message}`, 'Close');
+			// 			})
+			// 	})
+			// 	.catch(err => {
+			// 		this.notificationsService.createAlert(`Error saving invoice: ${err.message}`, 'Close');
+			// 	})
 		}
 	}
 

@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, from } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import * as moment from 'moment';
 
 import Invoice from '@app/interfaces/invoice.interface';
 import { InvoicesService } from '@app/services/invoices/invoices.service';
-import { DataService } from '@app/services/data/data.service';
 
 @Component({
 	selector: 'app-all-invoices',
@@ -16,12 +16,13 @@ import { DataService } from '@app/services/data/data.service';
 
 export class AllInvoicesComponent implements OnInit {
 
-	invoices;
-	total: Number = 0;
+	invoices$;
+	unsubscribe$ = new Subject();
+	total: number = 0;
 	
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
-	dataSource = new MatTableDataSource<any>();
+	tableData = new MatTableDataSource<any>();
 	tableColumns = [
 		'id',
 		'reference',
@@ -33,7 +34,7 @@ export class AllInvoicesComponent implements OnInit {
 		'status'
 	]
 
-	constructor(public invoicesService: InvoicesService, private dataService: DataService, private router: Router) {
+	constructor(public invoicesService: InvoicesService, private router: Router) {
 
 	}
 
@@ -47,19 +48,25 @@ export class AllInvoicesComponent implements OnInit {
 
 	async buildTable() {
 		try {
-			this.invoices = await this.dataService.getItems('invoices');
-			this.dataSource.data = this.invoices;
-			this.dataSource.paginator = this.paginator;
-			this.dataSource.sort = this.sort;
-			this.calculateTotal();
+			this.invoices$ = await this.invoicesService.getInvoices();
+
+			this.invoices$
+				.pipe(takeUntil(this.unsubscribe$))
+				.subscribe((invoices: Invoice[]) => {
+					this.tableData.data = invoices;
+					this.calculateTotal(invoices);
+				})
+
+			this.tableData.paginator = this.paginator;
+			this.tableData.sort = this.sort;
 		} catch(err) {
 			console.error(`Error retrieving invoices: ${err.Message}`);
 		}
 	}
 
-	calculateTotal() {
-		this.invoices.forEach(invoice => {
-			if (moment(invoice.date).isAfter(moment().subtract(365, 'days'))) {
+	calculateTotal(invoices) {
+		invoices.forEach(invoice => {
+			if (moment(invoice.saleDate).isAfter(moment().subtract(365, 'days'))) {
 				this.total += invoice.total;
 			}
 		})
@@ -77,6 +84,11 @@ export class AllInvoicesComponent implements OnInit {
 		} else {
 			return 'overdue';
 		}
+	}
+
+	ngOnDestroy() {
+		this.unsubscribe$.next();
+		this.unsubscribe$.complete();
 	}
 
 }

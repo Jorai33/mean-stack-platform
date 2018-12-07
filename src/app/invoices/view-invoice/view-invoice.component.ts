@@ -44,7 +44,7 @@ export class ViewInvoiceComponent implements OnInit {
 		})
 		
 		try {
-			this.invoice = await this.database.getItem('invoices', invoiceId) as Invoice;
+			// this.invoice = await this.database.getItem('invoices', invoiceId) as Invoice;
 			this.dataSource.data = this.invoice.items;
 			this.dataSource.sort = this.sort;
 			console.log('invoice:', this.invoice);

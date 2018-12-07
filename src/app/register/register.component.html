@@ -4,11 +4,4 @@
 <label for="password">Password</label>
 <input id="password" [(ngModel)]="password">
 
-<button (click)="register()">Register</button>
-
-<label for="confirmationCode">Confirmation Code</label>
-<input id="confirmationCode" [(ngModel)]="confirmationCode">
-
-<button (click)="confirmRegistration()">Confirm Registration</button>
-
-<button (click)="resendConfirmationCode()">Re-send Confirmation Code</button>
+<button (click)="auth.register(email, password)">Register</button>

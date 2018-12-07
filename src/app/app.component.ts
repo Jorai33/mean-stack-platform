@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
-import { SortByPipe } from './pipes/sort-by/sort-by.pipe';
 
 import { ElectronService } from 'ngx-electron';
 
@@ -11,6 +10,8 @@ import { NotificationsService } from '@app/services/notifications/notifications.
 import { UsersService } from '@app/services/users/users.service';
 import { TaxCodesService } from '@app/services/tax-codes/tax-codes.service';
 import { InvoicesService } from './services/invoices/invoices.service';
+
+import { SortByPipe } from './pipes/sort-by/sort-by.pipe';
 
 import { NotificationsComponent } from './notifications/notifications.component';
 
@@ -23,11 +24,10 @@ import { NotificationsComponent } from './notifications/notifications.component'
 export class AppComponent {
 	
 	constructor(private router: Router, public auth: AuthService, public notificationsService: NotificationsService, private users: UsersService, private taxCodes: TaxCodesService) {
-		
 	}
-    
-    get isAuthenticated(): boolean {
-        return this.auth.isAuthenticated;
+
+	ngOnInit() {
+		
 	}
 	
 	toggleNotifications(notificationsMenu: any) {

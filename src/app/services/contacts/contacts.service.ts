@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 import Contact from '@app/interfaces/contact.interface';
 import { NotificationsService } from '@app/services/notifications/notifications.service';
@@ -10,11 +11,14 @@ import { NotificationsService } from '@app/services/notifications/notifications.
 
 export class ContactsService {
 
-	contacts;
-	contacts$;
+	uri = 'http://localhost:4000';
 
-	constructor(private notificationsService: NotificationsService) {
+	constructor(private http: HttpClient, private notificationsService: NotificationsService) {
 
+	}
+
+	getContacts(): Observable<Contact[]> {
+		return this.http.get(`${this.uri}/contacts`) as Observable<Contact[]>;
 	}
 
 }
