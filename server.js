@@ -10,7 +10,7 @@ import morgan from 'morgan';
 import db_credentials from './server/db_credentials.json';
 
 // Models
-import User from './server/models/user.model';
+import User from './server/models/User.model';
 import Invoice from './server/models/invoice.model';
 
 const app = express();
@@ -81,9 +81,9 @@ router.route('/register').post((req, res) => {
             })
         }
     })
-
 })
 
+// Establish Express route authentication middleware - Require user token from body or 'x-access-token' request header
 router.use((req, res, next) => {
     const token = req.body.token || req.headers['x-access-token'];
 

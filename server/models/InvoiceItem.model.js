@@ -1,35 +1,35 @@
 import mongoose from 'mongoose';
-import InvoiceItem from './InvoiceItem.model';
 
-const Invoice = new mongoose.Schema({
-    id: {
+const InvoiceItem = new mongoose.Schema({
+    number: {
+        type: Number,
+        required: true
+    },
+    type: {
         type: String,
         required: true
     },
-    reference: {
-        type: String,
-        required: true
-    },
-    saleDate: {
+    description: {
           type: String,
           required: true
     },
-    dueDate: {
-          type: String,
+    unitPrice: {
+          type: Number,
           required: true
     },
-    contactId: {
-          type: String,
+    quantity: {
+          type: Number,
           required: true
-    },
-    items: {
-          type: [InvoiceItem]
-    },
-    notes: {
-          type: String,
-          required: false
     },
     subtotal: {
+          type: Number,
+          required: true
+    },
+    taxCode: {
+          type: Number,
+          required: true
+    },
+    taxRate: {
           type: Number,
           required: true
     },
@@ -41,10 +41,10 @@ const Invoice = new mongoose.Schema({
           type: Number,
           required: true
     },
-    outstanding: {
+    notes: {
           type: String,
-          required: true
+          required: false
     }
 })
 
-export default mongoose.model('invoices', Invoice);
+export default InvoiceItem;
