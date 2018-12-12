@@ -2,25 +2,15 @@
 
 <br>
 
-<mat-progress-bar *ngIf="!contactsService.contacts" mode="indeterminate"></mat-progress-bar>
+<mat-progress-bar *ngIf="!contacts" mode="indeterminate"></mat-progress-bar>
 
-<div *ngIf="contactsService.contacts" fxLayout="column" fxLayoutGap="25px">
+<div *ngIf="contacts" fxLayout="column" fxLayoutGap="25px">
 
     <form [formGroup]="invoiceForm">
 
         <div fxLayout.xs="column" fxLayout.gt-sm="row" fxLayoutGap="25px">
 
                 <div fxFlex fxLayout="column">
-                    
-                    <mat-form-field appearance="outline" floatLabel="always">
-
-                        <mat-label>ID</mat-label>
-
-                        <input matInput formControlName="id" placeholder="ID">
-
-                        <mat-error *ngIf="form.id.errors">ID is required</mat-error>
-
-                    </mat-form-field>
                     
                     <mat-form-field appearance="outline" floatLabel="always">
 
@@ -42,7 +32,7 @@
                         
                         <mat-select formControlName="contactId" placeholder="Contact">
                              
-                            <mat-option *ngFor="let contact of contactsService.contacts" [value]="contact.id">{{contact.reference}}</mat-option>
+                            <mat-option *ngFor="let contact of contacts" [value]="contact.id">{{contact.reference}}</mat-option>
 
                         </mat-select>
                             

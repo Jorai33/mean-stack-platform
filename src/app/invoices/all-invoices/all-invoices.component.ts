@@ -15,8 +15,7 @@ import { InvoicesService } from '@app/services/invoices/invoices.service';
 })
 
 export class AllInvoicesComponent implements OnInit {
-
-	invoices$;
+	
 	unsubscribe$ = new Subject();
 	total: number = 0;
 	
@@ -24,7 +23,6 @@ export class AllInvoicesComponent implements OnInit {
 	@ViewChild(MatSort) sort: MatSort;
 	tableData = new MatTableDataSource<any>();
 	tableColumns = [
-		'id',
 		'reference',
 		'saleDate',
 		'dueDate',
@@ -38,7 +36,7 @@ export class AllInvoicesComponent implements OnInit {
 
 	}
 
-	ngOnInit() {
+	async ngOnInit() {
 		this.buildTable();
 	}
 	
@@ -48,9 +46,9 @@ export class AllInvoicesComponent implements OnInit {
 
 	async buildTable() {
 		try {
-			this.invoices$ = await this.invoicesService.getInvoices();
+			const invoices$ = await this.invoicesService.getInvoices();
 
-			this.invoices$
+			invoices$
 				.pipe(takeUntil(this.unsubscribe$))
 				.subscribe((invoices: Invoice[]) => {
 					this.tableData.data = invoices;
@@ -73,7 +71,7 @@ export class AllInvoicesComponent implements OnInit {
 	}
 
 	viewInvoice(invoice) {
-		this.router.navigateByUrl(`invoices/${invoice.id}`)
+		this.router.navigateByUrl(`invoices/${invoice._id}`)
 	}
 
 	getInvoiceStatus(invoice) {

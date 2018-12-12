@@ -1,7 +1,7 @@
 import InvoiceItem from './invoiceItem.interface';
 
 export default interface Invoice {
-    id: string,
+    userId: string,
     reference: string,
     saleDate: string,
     dueDate: string,

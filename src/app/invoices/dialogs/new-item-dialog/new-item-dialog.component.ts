@@ -68,6 +68,7 @@ export class NewItemDialogComponent implements OnInit {
 
 		this.item.subtotal = this.item.quantity * this.item.unitPrice;
 		this.item.tax = this.item.subtotal * (this.item.taxCode / 100);
+		
 
 		if (this.item.type === 'discount' || this.item.type === 'deduction') {
 			this.item.subtotal = -Math.abs(this.item.subtotal);

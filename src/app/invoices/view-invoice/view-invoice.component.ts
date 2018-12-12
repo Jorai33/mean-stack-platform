@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute} from '@angular/router';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import * as moment from 'moment';
 
 import Invoice from '@app/interfaces/invoice.interface';
-import { DataService } from '@app/services/data/data.service';
 import { NotificationsService } from '@app/services/notifications/notifications.service';
+import { InvoicesService } from '@app/services/invoices/invoices.service';
 
 @Component({
 	selector: 'app-view-invoice',
@@ -15,7 +17,8 @@ import { NotificationsService } from '@app/services/notifications/notifications.
 
 export class ViewInvoiceComponent implements OnInit {
 
-	invoice: Invoice;
+	invoice;
+	unsubscribe$ = new Subject();
 
 	error: boolean;
 
@@ -32,7 +35,7 @@ export class ViewInvoiceComponent implements OnInit {
 		'notes'
 	]
 
-	constructor(private router: Router, private activatedRoute: ActivatedRoute, private database: DataService, private notificationsService: NotificationsService) {
+	constructor(private router: Router, private activatedRoute: ActivatedRoute, private invoicesService: InvoicesService, private notificationsService: NotificationsService) {
 		this.error = false;
 	}
 
@@ -44,14 +47,18 @@ export class ViewInvoiceComponent implements OnInit {
 		})
 		
 		try {
-			// this.invoice = await this.database.getItem('invoices', invoiceId) as Invoice;
-			this.dataSource.data = this.invoice.items;
-			this.dataSource.sort = this.sort;
-			console.log('invoice:', this.invoice);
+			const invoice$ = await this.invoicesService.getInvoice(invoiceId);
+
+			invoice$
+				.pipe(takeUntil(this.unsubscribe$))
+				.subscribe(invoice => {
+					this.invoice = invoice;
+					this.dataSource.data = this.invoice.items;
+					this.dataSource.sort = this.sort;
+				})
 		} catch(err) {
 			this.notificationsService.createAlert(`Error retrieving invoice: ${err.message}`, 'Close');
 			this.error = true;
-			console.log('Error:', err);
 		}
 	}
 
@@ -69,6 +76,11 @@ export class ViewInvoiceComponent implements OnInit {
 
 	sendInvoice() {
 		console.log('ViewInvoice.sendInvoice()');
+	}
+
+	ngOnDestroy() {
+		this.unsubscribe$.next();
+		this.unsubscribe$.complete();
 	}
 
 }

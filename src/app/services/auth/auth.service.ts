@@ -58,7 +58,7 @@ export class AuthService {
 
 	setSession({token, user}) {
 		localStorage.setItem('token', token);
-		localStorage.setItem('user', user);
+		localStorage.setItem('user', JSON.stringify(user));
 		this.router.navigateByUrl('home');
 		this.notificationsService.createAlert(`Signed in as ${user.email}`, null);
 	}
@@ -69,6 +69,11 @@ export class AuthService {
 		} else {
 			return false;
 		}
+	}
+
+	get userId() {
+		const user = JSON.parse(localStorage.getItem('user'));
+		return user._id;
 	}
 
 }

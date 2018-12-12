@@ -20,7 +20,17 @@ export class InvoicesService {
 
 	getInvoices(): Observable<Invoice[]> {
 		const headers = new HttpHeaders().set('x-access-token', localStorage.getItem('token'));
-		return this.http.get(`${this.uri}/invoices`, { headers }) as Observable<Invoice[]>;
+		return this.http.get(`${this.uri}/invoices?userId=${this.auth.userId}`, { headers }) as Observable<Invoice[]>;
+	}
+
+	getInvoice(invoiceId): Observable<Invoice> {
+		const headers = new HttpHeaders().set('x-access-token', localStorage.getItem('token'));
+		return this.http.get(`${this.uri}/invoices/${invoiceId}`, { headers }) as Observable<Invoice>;
+	}
+
+	saveInvoice(invoice) {
+		const headers = new HttpHeaders().set('x-access-token', localStorage.getItem('token'));
+		return this.http.post(`${this.uri}/invoices`, invoice, { headers });
 	}
 
 }

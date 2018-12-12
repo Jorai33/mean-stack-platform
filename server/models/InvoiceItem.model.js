@@ -29,10 +29,6 @@ const InvoiceItem = new mongoose.Schema({
           type: Number,
           required: true
     },
-    taxRate: {
-          type: Number,
-          required: true
-    },
     tax: {
           type: Number,
           required: true
