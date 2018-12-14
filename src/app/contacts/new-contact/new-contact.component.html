@@ -1,3 +1,57 @@
-<p>
-  new-contact works!
-</p>
+<p class="mat-h4">New Contact</p>
+
+<br>
+
+<div fxLayout="column" fxLayoutGap="25px">
+
+    <form [formGroup]="contactForm">
+
+        <div fxLayout.xs="column" fxLayout.gt-sm="row" fxLayoutGap="25px">
+
+                <div fxFlex fxLayout="column">
+                    
+                    <mat-form-field appearance="outline" floatLabel="always">
+
+                        <mat-label>Reference</mat-label>
+
+                        <input matInput formControlName="reference" placeholder="Reference">
+
+                        <mat-error *ngIf="form.reference.errors">Reference is required</mat-error>
+
+                    </mat-form-field>
+
+                </div>
+
+                <div fxFlex fxLayout="column">
+                  
+                  <!-- TODO: -->
+
+                </div>
+
+                <div fxFlex fxLayout="column">
+                  
+                    <!-- TODO: -->
+
+                </div>
+
+        </div>
+
+    </form>
+
+    <mat-toolbar fxLayout="row" fxLayoutAlign="space-between center" class="toolbar--bottom">
+
+        <div class="toolbar__content--left">
+
+            <button mat-button routerLink="/contacts/all">Cancel</button>
+
+        </div>
+
+        <div class="toolbar__content--right">
+
+            <button mat-raised-button (click)="saveContact()" [disabled]="!contactForm.valid">Save</button>
+
+        </div>
+
+    </mat-toolbar>
+
+</div>

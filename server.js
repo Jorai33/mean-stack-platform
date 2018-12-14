@@ -11,7 +11,10 @@ import db_credentials from './server/db_credentials.json';
 
 // Models
 import User from './server/models/User.model';
-import Invoice from './server/models/invoice.model';
+import Contact from './server/models/Contact.model';
+import Expense from './server/models/Expense.model';
+import Invoice from './server/models/Invoice.model';
+import Mileage from './server/models/Mileage.model';
 
 const app = express();
 const router = express.Router();
@@ -114,6 +117,10 @@ router.use((req, res, next) => {
 router.route('/contacts').get((req, res) => {
       Contact.find(req.query, (err, contacts) => {
             res.status(200).json(contacts);
+
+            if (err) {
+                  console.error(`Error retrieving contacts: ${err.message}`);
+            }
       })
 })
 

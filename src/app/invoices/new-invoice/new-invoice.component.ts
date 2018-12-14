@@ -27,6 +27,8 @@ import { DateValidator } from '@app/validators/date.validator';
 
 export class NewInvoiceComponent implements OnInit {
 
+	loadComplete: boolean;
+
 	invoice: Invoice;
 	invoiceForm: FormGroup;
 	items: InvoiceItem[];
@@ -82,15 +84,16 @@ export class NewInvoiceComponent implements OnInit {
 
 	async ngOnInit() {
 		try {
-			const contacts$ = await this.invoicesService.getInvoices();
+			const contacts$ = await this.contactsService.getContacts();
 
 			contacts$
 				.pipe(takeUntil(this.unsubscribe$))
 				.subscribe(contacts => {
 					this.contacts = contacts;
+					this.loadComplete = true;
 				})
 		} catch(err) {
-			console.error(`Error retrieving contacts: ${err.Message}`);
+			this.notificationsService.createAlert(`Error retrieving contacts: ${err.message}`, null);
 		}
 	}
 

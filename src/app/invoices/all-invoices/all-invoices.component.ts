@@ -7,6 +7,7 @@ import * as moment from 'moment';
 
 import Invoice from '@app/interfaces/invoice.interface';
 import { InvoicesService } from '@app/services/invoices/invoices.service';
+import { NotificationsService } from '@app/services/notifications/notifications.service';
 
 @Component({
 	selector: 'app-all-invoices',
@@ -16,6 +17,7 @@ import { InvoicesService } from '@app/services/invoices/invoices.service';
 
 export class AllInvoicesComponent implements OnInit {
 	
+	loadComplete: boolean;
 	unsubscribe$ = new Subject();
 	total: number = 0;
 	
@@ -32,7 +34,7 @@ export class AllInvoicesComponent implements OnInit {
 		'status'
 	]
 
-	constructor(public invoicesService: InvoicesService, private router: Router) {
+	constructor(public invoicesService: InvoicesService, private notificationsService: NotificationsService, private router: Router) {
 
 	}
 
@@ -57,8 +59,9 @@ export class AllInvoicesComponent implements OnInit {
 
 			this.tableData.paginator = this.paginator;
 			this.tableData.sort = this.sort;
+			this.loadComplete = true;
 		} catch(err) {
-			console.error(`Error retrieving invoices: ${err.Message}`);
+			this.notificationsService.createAlert(`Error retrieving invoices: ${err.message}`, null);
 		}
 	}
 

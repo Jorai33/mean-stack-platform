@@ -2,9 +2,9 @@
 
 <br>
 
-<mat-progress-bar *ngIf="!contacts" mode="indeterminate"></mat-progress-bar>
+<mat-progress-bar *ngIf="!contacts && !loadComplete" mode="indeterminate"></mat-progress-bar>
 
-<div *ngIf="contacts" fxLayout="column" fxLayoutGap="25px">
+<div *ngIf="contacts || loadComplete" fxLayout="column" fxLayoutGap="25px">
 
     <form [formGroup]="invoiceForm">
 
