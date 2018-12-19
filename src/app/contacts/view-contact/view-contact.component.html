@@ -142,6 +142,8 @@
 
 	<br>
 
+	<p class="mat-title">{{getInvoicesTotal() | currency: 'GBP'}} <span class="mat-small text-muted">(Last 365 days)</span></p>
+
 	<table *ngIf="invoicesData.data.length" mat-table [dataSource]="invoicesData" matSort matSortActive="_id" matSortDirection="asc" class="mat-elevation-z0" width="100%" class="hasPaginator">
 		
 		<ng-container matColumnDef="reference">

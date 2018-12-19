@@ -130,6 +130,18 @@ export class ViewContactComponent implements OnInit {
 	}
 
 
+	// getInvoicesTotal()
+	getInvoicesTotal() {
+		let total = 0;
+
+		this.invoices.forEach(invoice => {
+			total += invoice.total;	
+		})
+
+		return total;
+	}
+
+
 	// getCountries()
 	async getCountries() {
 		try {
