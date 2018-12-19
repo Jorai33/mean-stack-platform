@@ -24,4 +24,9 @@ export class ContactsService {
 		return this.http.get(`${this.uri}/contacts?userId=${this.auth.userId}`, { headers }) as Observable<Contact[]>;
 	}
 
+	saveContact(contact) {
+		const headers = new HttpHeaders().set('x-access-token', localStorage.getItem('token'));
+		return this.http.post(`${this.uri}/contacts`, contact, { headers });
+	}
+
 }

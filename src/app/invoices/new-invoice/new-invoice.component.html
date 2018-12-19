@@ -2,79 +2,99 @@
 
 <br>
 
-<mat-progress-bar *ngIf="!contacts && !loadComplete" mode="indeterminate"></mat-progress-bar>
+<mat-progress-bar *ngIf="!contacts" mode="indeterminate"></mat-progress-bar>
 
-<div *ngIf="contacts || loadComplete" fxLayout="column" fxLayoutGap="25px">
+<div *ngIf="contacts" fxLayout="column" fxLayoutGap="25px">
 
     <form [formGroup]="invoiceForm">
 
         <div fxLayout.xs="column" fxLayout.gt-sm="row" fxLayoutGap="25px">
 
-                <div fxFlex fxLayout="column">
+            <div fxFlex fxLayout="column">
+                
+                <mat-form-field appearance="outline" floatLabel="always">
+
+                    <mat-label>Reference</mat-label>
+
+                    <input matInput formControlName="reference" placeholder="Reference">
+
+                    <mat-error *ngIf="form.reference.errors">Reference is required</mat-error>
+
+                </mat-form-field>
+
+            </div>
+
+            <div fxFlex fxLayout="column">
+                
+                <mat-form-field appearance="outline" floatLabel="always">
+
+                    <mat-label>Bill to</mat-label>
                     
-                    <mat-form-field appearance="outline" floatLabel="always">
-
-                        <mat-label>Reference</mat-label>
-
-                        <input matInput formControlName="reference" placeholder="Reference">
-
-                        <mat-error *ngIf="form.reference.errors">Reference is required</mat-error>
-
-                    </mat-form-field>
-
-                </div>
-
-                <div fxFlex fxLayout="column">
-                    
-                    <mat-form-field appearance="outline" floatLabel="always">
-
-                        <mat-label>Bill to</mat-label>
-                        
-                        <mat-select formControlName="contactId" placeholder="Contact">
-                             
-                            <mat-option *ngFor="let contact of contacts" [value]="contact.id">{{contact.reference}}</mat-option>
-
-                        </mat-select>
+                    <mat-select formControlName="contactId" placeholder="Contact">
                             
-                        <mat-error *ngIf="form.contactId.errors">Contact is required</mat-error>
+                        <mat-option *ngFor="let contact of contacts" [value]="contact._id">{{contact.reference}}</mat-option>
 
-                    </mat-form-field>
-
-                    <a class="link-secondary">Update Contact</a>
-
-                </div>
-
-                <div fxFlex fxLayout="column">
-                    
-                    <mat-form-field appearance="outline" floatLabel="always">
-
-                        <mat-label>Sale Date</mat-label>
+                    </mat-select>
                         
-                        <input matInput formControlName="saleDate" [matDatepicker]="saleDate" placeholder="DD/MM/YYYY" (dateInput)="onDateInput('saleDate', $event)">
+                    <mat-error *ngIf="form.contactId.errors">Contact is required</mat-error>
 
-                        <mat-datepicker-toggle matSuffix [for]="saleDate"></mat-datepicker-toggle>
+                </mat-form-field>
 
-                        <mat-datepicker #saleDate></mat-datepicker>
-                            
-                        <mat-error *ngIf="form.saleDate.errors">Invalid date</mat-error>
+                <a class="link-secondary">Update Contact</a>
 
-                    </mat-form-field>
+            </div>
+
+            <div fxFlex fxLayout="column">
+                
+                <mat-form-field appearance="outline" floatLabel="always">
+
+                    <mat-label>Sale Date</mat-label>
                     
-                    <mat-form-field appearance="outline" floatLabel="always">
+                    <input matInput formControlName="saleDate" [matDatepicker]="saleDate" placeholder="DD/MM/YYYY" (dateInput)="onDateInput('saleDate', $event)">
 
-                        <mat-label>Due Date</mat-label>
+                    <mat-datepicker-toggle matSuffix [for]="saleDate"></mat-datepicker-toggle>
+
+                    <mat-datepicker #saleDate></mat-datepicker>
                         
-                        <input matInput formControlName="dueDate" [matDatepicker]="dueDate" placeholder="DD/MM/YYYY" (dateInput)="onDateInput('dueDate', $event)">
+                    <mat-error *ngIf="form.saleDate.errors">Invalid date</mat-error>
 
-                        <mat-datepicker-toggle matSuffix [for]="dueDate"></mat-datepicker-toggle>
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline" floatLabel="always">
 
-                        <mat-datepicker #dueDate></mat-datepicker>
-                            
-                        <mat-error *ngIf="form.dueDate.errors">Invalid date</mat-error>
+                    <mat-label>Due Date</mat-label>
+                    
+                    <input matInput formControlName="dueDate" [matDatepicker]="dueDate" placeholder="DD/MM/YYYY" (dateInput)="onDateInput('dueDate', $event)">
 
-                    </mat-form-field>
+                    <mat-datepicker-toggle matSuffix [for]="dueDate"></mat-datepicker-toggle>
 
-                </div>
+                    <mat-datepicker #dueDate></mat-datepicker>
+                        
+                    <mat-error *ngIf="form.dueDate.errors">Invalid date</mat-error>
+
+                </mat-form-field>
+
+            </div>
+
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="25px">
+
+            <div fxFlex fxLayout="column">
+            
+                <mat-form-field appearance="outline" floatLabel="always">
+
+                    <mat-label>Notes</mat-label>
+
+                    <textarea matInput formControlName="notes" placeholder="Notes" maxlength="200" rows="3"></textarea>
+
+                </mat-form-field>
+
+            </div>
+
+            <div fxFlex fxLayout="column"></div>
+
+            <div fxFlex fxLayout="column"></div>
 
         </div>
 

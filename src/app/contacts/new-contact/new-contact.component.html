@@ -2,37 +2,129 @@
 
 <br>
 
-<div fxLayout="column" fxLayoutGap="25px">
+<mat-progress-bar *ngIf="!countries" mode="indeterminate"></mat-progress-bar>
 
-    <form [formGroup]="contactForm">
+<div *ngIf="countries" fxLayout="column">
 
-        <div fxLayout.xs="column" fxLayout.gt-sm="row" fxLayoutGap="25px">
+    <form [formGroup]="contactForm" fxLayout="column" fxLayoutGap="25px">
 
-                <div fxFlex fxLayout="column">
-                    
-                    <mat-form-field appearance="outline" floatLabel="always">
+        <p>Basic Details</p>
 
-                        <mat-label>Reference</mat-label>
+        <div id="basicDetails" class="form-group" fxLayout.xs="column" fxLayout.gt-sm="row" fxLayoutGap="25px">
+                
+            <mat-form-field appearance="outline" floatLabel="always">
 
-                        <input matInput formControlName="reference" placeholder="Reference">
+                <mat-label>Reference *</mat-label>
 
-                        <mat-error *ngIf="form.reference.errors">Reference is required</mat-error>
+                <input matInput formControlName="reference" placeholder="Reference">
 
-                    </mat-form-field>
+                <mat-error *ngIf="form.reference.errors">Reference is required</mat-error>
 
-                </div>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" floatLabel="always">
 
-                <div fxFlex fxLayout="column">
-                  
-                  <!-- TODO: -->
+                <mat-label>VAT Number</mat-label>
 
-                </div>
+                <input matInput formControlName="vatNumber" placeholder="VAT Number">
 
-                <div fxFlex fxLayout="column">
-                  
-                    <!-- TODO: -->
+                <mat-error *ngIf="form.vatNumber.errors">Invalid VAT number</mat-error>
 
-                </div>
+            </mat-form-field>
+
+        </div>
+
+        <p>Contact Details</p>
+
+        <div class="form-group" fxLayout="column">
+            
+            <mat-form-field appearance="outline" floatLabel="always">
+
+                <mat-label>Email Address *</mat-label>
+
+                <input matInput formControlName="email" placeholder="Email Address">
+
+                <mat-error *ngIf="form.email.errors">Invalid email address</mat-error>
+
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" floatLabel="always">
+
+                <mat-label>Primary Telephone</mat-label>
+
+                <input matInput formControlName="telephonePrimary" placeholder="Primary Telephone">
+
+                <mat-error *ngIf="form.telephonePrimary.errors">Invalid telephone number</mat-error>
+
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" floatLabel="always">
+
+                <mat-label>Secondary Telephone</mat-label>
+
+                <input matInput formControlName="telephoneSecondary" placeholder="Secondary Telephone">
+
+                <mat-error *ngIf="form.telephoneSecondary.errors">Invalid telephone number</mat-error>
+
+            </mat-form-field>
+
+        </div>
+
+        <p>Address</p>
+
+        <div formGroupName="address" class="form-group" fxLayout="column">
+            
+            <mat-form-field appearance="outline" floatLabel="always">
+
+                <mat-label>Line 1</mat-label>
+
+                <input matInput formControlName="line1" placeholder="Line 1">
+
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" floatLabel="always">
+
+                <mat-label>Line 2</mat-label>
+
+                <input matInput formControlName="line2" placeholder="Line 2">
+
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" floatLabel="always">
+
+                <mat-label>Town / City</mat-label>
+
+                <input matInput formControlName="townCity" placeholder="Town / City">
+
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" floatLabel="always">
+
+                <mat-label>County / State</mat-label>
+
+                <input matInput formControlName="countyState" placeholder="County / State">
+
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" floatLabel="always">
+
+                <mat-label>Postcode</mat-label>
+
+                <input matInput formControlName="postcode" placeholder="Postcode">
+
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" floatLabel="always">
+
+                <mat-label>Country</mat-label>
+                        
+                <mat-select formControlName="country" [(value)]="selectedCountry" placeholder="Country">
+                     
+                    <mat-option *ngFor="let country of countries" [value]="country.name">{{country.name}}</mat-option>
+
+                </mat-select>
+
+            </mat-form-field>
 
         </div>
 

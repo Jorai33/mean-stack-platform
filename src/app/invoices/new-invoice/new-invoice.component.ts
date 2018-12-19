@@ -1,9 +1,9 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { MatPaginator, MatSort, MatTableDataSource, MatDialog, MatDialogRef, MatDatepickerInputEvent } from '@angular/material';
+import { MatTableDataSource, MatDialog, MatDialogRef } from '@angular/material';
 import * as moment from 'moment';
 
 import { AuthService } from '@app/services/auth/auth.service';
@@ -27,10 +27,9 @@ import { DateValidator } from '@app/validators/date.validator';
 
 export class NewInvoiceComponent implements OnInit {
 
-	loadComplete: boolean;
-
 	invoice: Invoice;
 	invoiceForm: FormGroup;
+
 	items: InvoiceItem[];
 	itemsData = new MatTableDataSource<any>();
 	tableColumns = [
@@ -43,15 +42,15 @@ export class NewInvoiceComponent implements OnInit {
 		'total',
 		'notes'
 	]
+	
+	subtotal: number;
+	tax: number;
+	total: number;
 
 	contacts;
 	unsubscribe$ = new Subject();
 
 	newItemDialogRef: MatDialogRef<NewItemDialogComponent>;
-	
-	subtotal: number;
-	tax: number;
-	total: number;
 
 	constructor(private router: Router, public authService: AuthService, public invoicesService: InvoicesService, public contactsService: ContactsService, private notificationsService: NotificationsService, private formBuilder: FormBuilder, private dialog: MatDialog) {
 		this.items = [];
@@ -82,6 +81,8 @@ export class NewInvoiceComponent implements OnInit {
 		this.total = 0;
 	}
 
+
+	// ngOnInit()
 	async ngOnInit() {
 		try {
 			const contacts$ = await this.contactsService.getContacts();
@@ -90,21 +91,20 @@ export class NewInvoiceComponent implements OnInit {
 				.pipe(takeUntil(this.unsubscribe$))
 				.subscribe(contacts => {
 					this.contacts = contacts;
-					this.loadComplete = true;
 				})
 		} catch(err) {
 			this.notificationsService.createAlert(`Error retrieving contacts: ${err.message}`, null);
 		}
 	}
 
-	ngAfterViewInit() {
-		
-	}
 
+	// get form()
 	get form() {
 		return this.invoiceForm.controls;
 	}
 
+
+	// addItem()
 	addItem() {
 		this.newItemDialogRef = this.dialog.open(NewItemDialogComponent, {
 			hasBackdrop: true,
@@ -125,18 +125,26 @@ export class NewInvoiceComponent implements OnInit {
 		})
 	}
 
+
+	// deleteItem()
 	deleteItem() {
 		// TODO:
 	}
 
+
+	// editItem()
 	editItem() {
 		// TODO:
 	}
 
+
+	// onDateInput(controlName, event)
 	onDateInput(controlName, event) {
 		this.invoiceForm.controls[controlName].setValue(moment(event.target.value, 'DD/MM/YYYY').toISOString());
 	}
 	
+
+	// saveInvoice()
 	saveInvoice() {
 		this.buildInvoice();
 		
@@ -146,14 +154,17 @@ export class NewInvoiceComponent implements OnInit {
 		} else {
 			this.invoicesService.saveInvoice(this.invoice).toPromise()
 				.then(res => {
-					console.log(`Invoice saved`, res);
+					this.notificationsService.createAlert('Invoice saved', null);
+					this.router.navigateByUrl('invoices/all');
 				})
 				.catch(err => {
-					console.error(`Error saving invoice: ${err.message}`);
+					this.notificationsService.createAlert(`Error saving invoice: ${err.message}`, 'Close');
 				})
 		}
 	}
 
+
+	// saveAndSend()
 	saveAndSend() {
 		this.buildInvoice();
 		
@@ -165,6 +176,8 @@ export class NewInvoiceComponent implements OnInit {
 		}
 	}
 
+
+	// buildInvoice()
 	buildInvoice() {
 		this.invoice = this.invoiceForm.value;
 		this.invoice.items = this.items;

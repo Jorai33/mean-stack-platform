@@ -1,5 +1,21 @@
 mat-form-field {
 
+    &.width-100pc {
+        width: 100%;
+    }
+
+    &.width-75pc {
+        width: 75%;
+    }
+
+    &.width-50pc {
+        width: 50%;
+    }
+
+    &.width-25pc {
+        width: 25%;
+    }
+
     &:not(.mat-focused) .mat-form-field-flex:hover .mat-form-field-outline-thick {
         color: rgba(0, 0, 0, 0.25);
     }
@@ -38,4 +54,9 @@ mat-form-field {
 .mat-datepicker-toggle-default-icon {
     width: 1.2em !important;
     height: 1.2em !important;
+}
+
+.mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-label,
+.mat-input-element:disabled {
+    color: rgba(0, 0, 0, 0.6);
 }

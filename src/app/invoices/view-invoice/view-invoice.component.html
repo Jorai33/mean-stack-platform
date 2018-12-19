@@ -2,89 +2,109 @@
 
 <br>
 
-<mat-progress-bar *ngIf="!invoice && !error" mode="indeterminate"></mat-progress-bar>
+<mat-progress-bar *ngIf="!invoice || !contacts" mode="indeterminate"></mat-progress-bar>
 
-<div *ngIf="invoice" fxLayout="column" fxLayoutGap="25px">
+<div *ngIf="invoice && contacts" fxLayout="column" fxLayoutGap="25px">
 
-    <div fxLayout.xs="column" fxLayout.gt-sm="row" fxLayoutGap="25px">
+    <form [formGroup]="invoiceForm">
 
-        <div fxFlex fxLayout="column">
-            
-            <mat-form-field appearance="outline" floatLabel="always">
+        <div fxLayout.xs="column" fxLayout.gt-sm="row" fxLayoutGap="25px">
 
-                <mat-label>ID</mat-label>
+            <div fxFlex fxLayout="column">
+                
+                <mat-form-field appearance="outline" floatLabel="always">
 
-                <input matInput [(ngModel)]="invoice.id" placeholder="ID">
+                    <mat-label>ID</mat-label>
 
-            </mat-form-field>
-            
-            <mat-form-field appearance="outline" floatLabel="always">
+                    <input matInput formControlName="_id" placeholder="ID" disabled readonly>
 
-                <mat-label>Reference</mat-label>
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline" floatLabel="always">
 
-                <input matInput [(ngModel)]="invoice.reference" placeholder="Reference">
+                    <mat-label>Reference</mat-label>
 
-            </mat-form-field>
+                    <input matInput formControlName="reference" placeholder="Reference">
+
+                    <mat-error *ngIf="form.reference.errors">Reference is required</mat-error>
+
+                </mat-form-field>
+
+            </div>
+
+            <div fxFlex fxLayout="column">
+                
+                <mat-form-field appearance="outline" floatLabel="always">
+
+                    <mat-label>Bill to</mat-label>
+                            
+                    <mat-select formControlName="contactId" placeholder="Contact">
+                        
+                        <mat-option *ngFor="let contact of contacts" [value]="contact._id">{{contact.reference}}</mat-option>
+
+                    </mat-select>
+
+                </mat-form-field>
+
+                <a class="link-secondary">Update Contact</a>
+
+            </div>
+
+            <div fxFlex fxLayout="column">
+                
+                <mat-form-field appearance="outline" floatLabel="always">
+
+                    <mat-label>Sale Date</mat-label>
+                    
+                    <input matInput formControlName="saleDate" [matDatepicker]="saleDate" placeholder="DD/MM/YYYY" (dateInput)="onDateInput('saleDate', $event)">
+
+                    <mat-datepicker-toggle matSuffix [for]="saleDate"></mat-datepicker-toggle>
+
+                    <mat-datepicker #saleDate [startAt]="invoice.date"></mat-datepicker>
+
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline" floatLabel="always">
+
+                    <mat-label>Due Date</mat-label>
+                    
+                    <input matInput formControlName="dueDate" [matDatepicker]="dueDate" placeholder="DD/MM/YYYY" (dateInput)="onDateInput('dueDate', $event)">
+
+                    <mat-datepicker-toggle matSuffix [for]="dueDate"></mat-datepicker-toggle>
+
+                    <mat-datepicker #dueDate [startAt]="invoice.saleDate"></mat-datepicker>
+
+                </mat-form-field>
+
+            </div>
 
         </div>
 
-        <div fxFlex fxLayout="column">
+        <div fxLayout="row" fxLayoutGap="25px">
+
+            <div fxFlex fxLayout="column">
             
-            <mat-form-field appearance="outline" floatLabel="always">
+                <mat-form-field appearance="outline" floatLabel="always">
 
-                <mat-label>Bill to</mat-label>
-                
-                <mat-select [(ngModel)]="invoice.contactId" placeholder="Contact">
+                    <mat-label>Notes</mat-label>
 
-                    <mat-option value="new">New contact...</mat-option>
+                    <textarea matInput formControlName="notes" placeholder="Notes" maxlength="200" rows="3"></textarea>
 
-                    <mat-option value="001" selected>Nick Cook Ltd</mat-option>
+                </mat-form-field>
 
-                    <mat-option value="002">Nick Cook Ltd</mat-option>
+            </div>
 
-                    <mat-option value="003">Nick Cook Ltd</mat-option>
+            <div fxFlex fxLayout="column"></div>
 
-                </mat-select>
-
-            </mat-form-field>
-
-            <a class="link-secondary">Update Contact</a>
+            <div fxFlex fxLayout="column"></div>
 
         </div>
 
-        <div fxFlex fxLayout="column">
-            
-            <mat-form-field appearance="outline" floatLabel="always">
-
-                <mat-label>Sale Date</mat-label>
-                
-                <input matInput [(ngModel)]="invoice.saleDate" [matDatepicker]="saleDate" placeholder="DD/MM/YYYY">
-
-                <mat-datepicker-toggle matSuffix [for]="saleDate"></mat-datepicker-toggle>
-
-                <mat-datepicker #saleDate [startAt]="invoice.date"></mat-datepicker>
-
-            </mat-form-field>
-            
-            <mat-form-field appearance="outline" floatLabel="always">
-
-                <mat-label>Due Date</mat-label>
-                
-                <input matInput [(ngModel)]="invoice.dueDate" [matDatepicker]="dueDate" placeholder="DD/MM/YYYY">
-
-                <mat-datepicker-toggle matSuffix [for]="dueDate"></mat-datepicker-toggle>
-
-                <mat-datepicker #dueDate [startAt]="invoice.saleDate"></mat-datepicker>
-
-            </mat-form-field>
-
-        </div>
-
-    </div>
+    </form>
 
     <p class="mat-body">Items</p>
 
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z0" width="100%">
+    <table mat-table [dataSource]="itemsData" class="mat-elevation-z0" width="100%">
         
         <ng-container matColumnDef="description">
             
@@ -220,7 +240,7 @@
 
             <button mat-raised-button (click)="saveInvoice()">Save</button>
 
-            <button mat-raised-button (click)="sendInvoice()">Send</button>
+            <button mat-raised-button (click)="saveAndSend()">Send</button>
 
         </div>
 

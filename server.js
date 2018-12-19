@@ -260,26 +260,20 @@ router.route('/invoices').post((req, res) => {
 
 // Update invoice by ID
 router.route('/invoice/update/:id').post((req, res) => {
-    Invoice.findById(req.params.id, (err, invoice => {
-        if (!invoice) {
-            return next(new Error('Unable to find invoice'));
-        } else {
-            invoice.save()
-                .then(invoice => {
-                    res.status(200).json('Successfully updated invoice', invoice);
-                })
-                .catch(err => {
-                    res.status(400).send('Error updating invoice', err);
-                })
-        }
-    }))
+      Invoice.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, invoice) => {
+            if (err) {
+                res.json(err);
+            } else {
+                res.status(200).json(invoice);
+            }
+      })
 })
 
 // Delete invoice by ID
 router.route('/invoices/delete/:id').get((req, res) => {
     Invoice.findByIdAndRemove({
         id: req.params.id
-    }, (err, invoice) => {
+    }, (err, res) => {
         if (err) {
             res.json(err);
         } else {

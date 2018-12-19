@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 
 // Angular Resources
@@ -71,6 +72,7 @@ const UK_DATE_FORMAT = {
 
 	imports: [
 		CommonModule,
+		ScrollingModule,
 
 		// Angular Resources
 		FlexLayoutModule,
