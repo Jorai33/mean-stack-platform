@@ -100,6 +100,20 @@ export class AllInvoicesComponent implements OnInit {
 	}
 
 
+	// getInvoicesTotal()
+	getInvoicesTotal() {
+		let total = 0;
+
+		this.tableData.data.forEach(invoice => {
+			if (moment(invoice.saleDate).isAfter(moment().subtract(365, 'days').startOf('day'))) {
+				total += invoice.total;
+			}
+		})
+
+		return total;
+	}
+
+
 	// ngOnDestroy()
 	ngOnDestroy() {
 		this.unsubscribe$.next();

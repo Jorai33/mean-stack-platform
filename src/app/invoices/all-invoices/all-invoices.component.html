@@ -4,7 +4,7 @@
 
 <div fxLayout="row" fxLayoutAlign="space-between start">
 
-		<p class="mat-title">{{total | currency: 'GBP'}} <span class="mat-small text-muted">(Last 365 days)</span></p>
+		<p class="mat-title">{{getInvoicesTotal() | currency: 'GBP'}} <span class="mat-small text-muted">(Last 365 days)</span></p>
 
 		<button mat-raised-button routerLink="/invoices/new">New Invoice</button>
 

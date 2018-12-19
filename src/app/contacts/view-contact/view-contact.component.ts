@@ -135,7 +135,9 @@ export class ViewContactComponent implements OnInit {
 		let total = 0;
 
 		this.invoices.forEach(invoice => {
-			total += invoice.total;	
+			if (moment(invoice.saleDate).isAfter(moment().subtract(365, 'days').startOf('day'))) {
+				total += invoice.total;
+			}
 		})
 
 		return total;
