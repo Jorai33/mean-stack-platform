@@ -23,6 +23,11 @@ export class InvoicesService {
 		return this.http.get(`${this.uri}/invoices?userId=${this.auth.userId}`, { headers }) as Observable<Invoice[]>;
 	}
 
+	getInvoicesForContact(contactId): Observable<Invoice[]> {
+		const headers = new HttpHeaders().set('x-access-token', localStorage.getItem('token'));
+		return this.http.get(`${this.uri}/invoices?userId=${this.auth.userId}&contactId=${contactId}`, { headers }) as Observable<Invoice[]>;
+	}
+
 	getInvoice(invoiceId): Observable<Invoice> {
 		const headers = new HttpHeaders().set('x-access-token', localStorage.getItem('token'));
 		return this.http.get(`${this.uri}/invoices/${invoiceId}`, { headers }) as Observable<Invoice>;

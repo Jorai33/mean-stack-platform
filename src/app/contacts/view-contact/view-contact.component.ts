@@ -3,7 +3,8 @@ import { Router, ActivatedRoute} from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { MatSort, MatTableDataSource, MatDialog, MatDialogRef } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource, MatDialog, MatDialogRef } from '@angular/material';
+import * as moment from 'moment';
 
 import Contact from '@app/interfaces/contact.interface';
 import { NotificationsService } from '@app/services/notifications/notifications.service';
@@ -27,10 +28,17 @@ export class ViewContactComponent implements OnInit {
 
 	unsubscribe$ = new Subject();
 
+	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
 	invoicesData = new MatTableDataSource<any>();
 	tableColumns = [
-		'reference'
+		'reference',
+		'saleDate',
+		'dueDate',
+		'subtotal',
+		'tax',
+		'total',
+		'status'
 	]
 
 	constructor(private router: Router, private activatedRoute: ActivatedRoute, private contactsService: ContactsService, private invoicesService: InvoicesService, private notificationsService: NotificationsService, private formBuilder: FormBuilder, private dialog: MatDialog) {
@@ -86,7 +94,39 @@ export class ViewContactComponent implements OnInit {
 
 	// getInvoices(contactId)
 	async getInvoices(contactId) {
-		// TODO:
+		try {
+			const invoices$ = await this.invoicesService.getInvoicesForContact(contactId);
+
+			invoices$
+				.pipe(takeUntil(this.unsubscribe$))
+				.subscribe(invoices => {
+					this.invoices = invoices;
+					this.invoicesData.data = invoices;
+				})
+
+			this.invoicesData.paginator = this.paginator;
+			this.invoicesData.sort = this.sort;
+		} catch(err) {
+			this.notificationsService.createAlert(`Error retrieving invoices for contact: ${err.message}`, 'Close');
+		}
+	}
+
+
+	// viewInvoice(invoice)
+	viewInvoice(invoice) {
+		this.router.navigateByUrl(`invoices/${invoice._id}`)
+	}
+
+
+	// getInvoiceStatus(invoice)
+	getInvoiceStatus(invoice) {
+		if (invoice.outstanding == 0) {
+			return 'paid';
+		} else if (moment(invoice.dueDate).isAfter(moment())) {
+			return 'open';
+		} else {
+			return 'overdue';
+		}
 	}
 
 
