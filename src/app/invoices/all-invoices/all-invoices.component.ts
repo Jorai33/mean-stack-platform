@@ -16,13 +16,14 @@ import { NotificationsService } from '@app/services/notifications/notifications.
 })
 
 export class AllInvoicesComponent implements OnInit {
-	
-	loadComplete: boolean;
-	unsubscribe$ = new Subject();
+
 	total: number = 0;
+	
+	unsubscribe$ = new Subject();
 	
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
+
 	tableData = new MatTableDataSource<any>();
 	tableColumns = [
 		'reference',
@@ -38,14 +39,20 @@ export class AllInvoicesComponent implements OnInit {
 
 	}
 
-	async ngOnInit() {
+
+	// ngOnInit()
+	ngOnInit() {
 		this.buildTable();
 	}
 	
+
+	// ngAfterViewInit()
 	ngAfterViewInit() {
 		
 	}
 
+
+	// buildTable()
 	async buildTable() {
 		try {
 			const invoices$ = await this.invoicesService.getInvoices();
@@ -59,12 +66,13 @@ export class AllInvoicesComponent implements OnInit {
 
 			this.tableData.paginator = this.paginator;
 			this.tableData.sort = this.sort;
-			this.loadComplete = true;
 		} catch(err) {
 			this.notificationsService.createAlert(`Error retrieving invoices: ${err.message}`, null);
 		}
 	}
 
+
+	// calculateTotal(invoices)
 	calculateTotal(invoices) {
 		invoices.forEach(invoice => {
 			if (moment(invoice.saleDate).isAfter(moment().subtract(365, 'days'))) {
@@ -73,10 +81,14 @@ export class AllInvoicesComponent implements OnInit {
 		})
 	}
 
+
+	// viewInvoice(invoice)
 	viewInvoice(invoice) {
 		this.router.navigateByUrl(`invoices/${invoice._id}`)
 	}
 
+
+	// getInvoiceStatus(invoice)
 	getInvoiceStatus(invoice) {
 		if (invoice.outstanding == 0) {
 			return 'paid';
@@ -87,6 +99,8 @@ export class AllInvoicesComponent implements OnInit {
 		}
 	}
 
+
+	// ngOnDestroy()
 	ngOnDestroy() {
 		this.unsubscribe$.next();
 		this.unsubscribe$.complete();

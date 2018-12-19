@@ -12,9 +12,9 @@
 
 <br>
 
-<mat-progress-bar *ngIf="!tableData.data.length && !loadComplete" mode="indeterminate"></mat-progress-bar>
+<mat-progress-bar *ngIf="!tableData.data.length" mode="indeterminate"></mat-progress-bar>
 
-<table *ngIf="tableData" mat-table [dataSource]="tableData" matSort matSortActive="id" matSortDirection="asc" class="mat-elevation-z0" width="100%" class="hasPaginator">
+<table *ngIf="tableData.data.length" mat-table [dataSource]="tableData" matSort matSortActive="_id" matSortDirection="asc" class="mat-elevation-z0" width="100%" class="hasPaginator">
 	
 	<ng-container matColumnDef="reference">
 		

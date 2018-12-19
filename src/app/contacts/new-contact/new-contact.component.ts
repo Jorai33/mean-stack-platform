@@ -41,6 +41,8 @@ export class NewContactComponent implements OnInit {
 		})
 	}
 
+
+	// ngOnInit()
 	async ngOnInit() {
 		try {
 			const getCountries = await fetch('https://restcountries.eu/rest/v2/all');
@@ -50,10 +52,14 @@ export class NewContactComponent implements OnInit {
 		}
 	}
 
+
+	// get form()
 	get form() {
 		return this.contactForm.controls;
 	}
 
+
+	// saveContact()
 	saveContact() {
 		this.contact = this.contactForm.value;
 		this.contact.userId = this.authService.userId;
