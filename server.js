@@ -126,7 +126,7 @@ router.route('/contacts').get((req, res) => {
 
 // Get contact by ID
 router.route('/contacts/:id').get((req, res) => {
-      Contact.findById(req.params.contactId, (err, contact) => {
+      Contact.findById(req.params.id, (err, contact) => {
             res.status(200).json(contact);
       })
 })
@@ -145,19 +145,13 @@ router.route('/contacts').post((req, res) => {
 
 // Update contact by ID
 router.route('/contact/update/:id').post((req, res) => {
-      Contact.findById(req.params.id, (err, contact => {
-            if (!contact) {
-                  return next(new Error('Unable to find contact'));
+      Contact.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, contact) => {
+            if (err) {
+                res.json(err);
             } else {
-                  contact.save()
-                  .then(contact => {
-                        res.status(200).json('Successfully updated contact', contact);
-                  })
-                  .catch(err => {
-                        res.status(400).send('Error updating contact', err);
-                  })
+                res.status(200).json(contact);
             }
-      }))
+      })
 })
 
 // Delete contact by ID

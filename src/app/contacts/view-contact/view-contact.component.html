@@ -1,3 +1,157 @@
-<p>
-  view-contact works!
-</p>
+<p class="mat-h4">Contact Summary - {{contact.reference}}</p>
+
+<br>
+
+<mat-progress-bar *ngIf="!contact" mode="indeterminate"></mat-progress-bar>
+
+<div *ngIf="contact" fxLayout="column">
+
+	<form [formGroup]="contactForm" fxLayout="column" fxLayoutGap="25px">
+
+		<p>Basic Details</p>
+
+		<div id="basicDetails" class="form-group" fxLayout.xs="column" fxLayout.gt-sm="row" fxLayoutGap="25px">
+				
+			<mat-form-field appearance="outline" floatLabel="always" class="disabled">
+
+				<mat-label>ID</mat-label>
+
+				<input matInput formControlName="_id" placeholder="ID" disabled readonly>
+
+			</mat-form-field>
+				
+			<mat-form-field appearance="outline" floatLabel="always">
+
+				<mat-label>Reference *</mat-label>
+
+				<input matInput formControlName="reference" placeholder="Reference">
+
+				<mat-error *ngIf="form.reference.errors">Reference is required</mat-error>
+
+			</mat-form-field>
+			
+			<mat-form-field appearance="outline" floatLabel="always">
+
+				<mat-label>VAT Number</mat-label>
+
+				<input matInput formControlName="vatNumber" placeholder="VAT Number">
+
+				<mat-error *ngIf="form.vatNumber.errors">Invalid VAT number</mat-error>
+
+			</mat-form-field>
+
+		</div>
+
+		<p>Contact Details</p>
+
+		<div class="form-group" fxLayout="column">
+			
+			<mat-form-field appearance="outline" floatLabel="always">
+
+				<mat-label>Email Address *</mat-label>
+
+				<input matInput formControlName="email" placeholder="Email Address">
+
+				<mat-error *ngIf="form.email.errors">Invalid email address</mat-error>
+
+			</mat-form-field>
+			
+			<mat-form-field appearance="outline" floatLabel="always">
+
+				<mat-label>Primary Telephone</mat-label>
+
+				<input matInput formControlName="telephonePrimary" placeholder="Primary Telephone">
+
+				<mat-error *ngIf="form.telephonePrimary.errors">Invalid telephone number</mat-error>
+
+			</mat-form-field>
+
+			<mat-form-field appearance="outline" floatLabel="always">
+
+				<mat-label>Secondary Telephone</mat-label>
+
+				<input matInput formControlName="telephoneSecondary" placeholder="Secondary Telephone">
+
+				<mat-error *ngIf="form.telephoneSecondary.errors">Invalid telephone number</mat-error>
+
+			</mat-form-field>
+
+		</div>
+
+		<p>Address</p>
+
+		<div formGroupName="address" class="form-group" fxLayout="column">
+			
+			<mat-form-field appearance="outline" floatLabel="always">
+
+				<mat-label>Line 1</mat-label>
+
+				<input matInput formControlName="line1" placeholder="Line 1">
+
+			</mat-form-field>
+			
+			<mat-form-field appearance="outline" floatLabel="always">
+
+				<mat-label>Line 2</mat-label>
+
+				<input matInput formControlName="line2" placeholder="Line 2">
+
+			</mat-form-field>
+
+			<mat-form-field appearance="outline" floatLabel="always">
+
+				<mat-label>Town / City</mat-label>
+
+				<input matInput formControlName="townCity" placeholder="Town / City">
+
+			</mat-form-field>
+
+			<mat-form-field appearance="outline" floatLabel="always">
+
+				<mat-label>County / State</mat-label>
+
+				<input matInput formControlName="countyState" placeholder="County / State">
+
+			</mat-form-field>
+
+			<mat-form-field appearance="outline" floatLabel="always">
+
+				<mat-label>Postcode</mat-label>
+
+				<input matInput formControlName="postcode" placeholder="Postcode">
+
+			</mat-form-field>
+
+			<mat-form-field appearance="outline" floatLabel="always">
+
+				<mat-label>Country</mat-label>
+						
+				<mat-select formControlName="country" placeholder="Country">
+						
+					<mat-option *ngFor="let country of countries" [value]="country.name">{{country.name}}</mat-option>
+
+				</mat-select>
+
+			</mat-form-field>
+
+		</div>
+
+	</form>
+
+    <mat-toolbar fxLayout="row" fxLayoutAlign="space-between center" class="toolbar--bottom">
+
+        <div class="toolbar__content--left">
+
+            <button mat-button routerLink="/contacts/all">Cancel</button>
+
+        </div>
+
+        <div class="toolbar__content--right">
+
+            <button mat-raised-button (click)="saveContact()" [disabled]="!contactForm.valid || !contactForm.dirty">Save</button>
+
+        </div>
+
+    </mat-toolbar>
+
+</div>

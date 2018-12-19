@@ -171,11 +171,10 @@ export class ViewInvoiceComponent implements OnInit {
 		} else {
 			this.invoicesService.updateInvoice(this.invoice).toPromise()
 				.then(res => {
-					this.notificationsService.createAlert('Invoice saved', null);
-					this.router.navigateByUrl('invoices/all');
+					this.notificationsService.createAlert('Invoice updated', null);
 				})
 				.catch(err => {
-					this.notificationsService.createAlert(`Error saving invoice: ${err.message}`, 'Close');
+					this.notificationsService.createAlert(`Error updating invoice: ${err.message}`, 'Close');
 				})
 		}
 	}

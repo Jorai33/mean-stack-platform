@@ -40,6 +40,8 @@ mat-form-field {
     }
 }
 
+
+// Form control outlines
 .mat-form-field-appearance-outline {
 
     .mat-form-field-outline-start {
@@ -56,7 +58,21 @@ mat-form-field {
     height: 1.2em !important;
 }
 
+
+// Disabled form controls
 .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-label,
 .mat-input-element:disabled {
     color: rgba(0, 0, 0, 0.6);
+}
+
+mat-form-field.disabled .mat-form-field-outline,
+mat-form-field.disabled:hover .mat-form-field-outline {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+mat-form-field.disabled:hover,
+mat-form-field.disabled:hover input,
+mat-form-field.disabled:hover textarea,
+mat-form-field.disabled:hover select {
+    cursor: not-allowed;
 }
