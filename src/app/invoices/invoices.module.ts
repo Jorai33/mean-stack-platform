@@ -16,6 +16,7 @@ import { MaterialModule } from '@app/material.module';
 	import { AllInvoicesComponent } from './all-invoices/all-invoices.component';
 	// Dialogs
 	import { NewItemDialogComponent } from './dialogs/new-item-dialog/new-item-dialog.component';
+	import { DeleteInvoiceDialogComponent } from './dialogs/delete-invoice-dialog/delete-invoice-dialog.component';
 
 @NgModule({
 
@@ -35,12 +36,14 @@ import { MaterialModule } from '@app/material.module';
 			// All Invoices
 			AllInvoicesComponent,
 			// Dialogs
-			NewItemDialogComponent
+			NewItemDialogComponent,
+			DeleteInvoiceDialogComponent
 	],
 	
 	entryComponents: [
 			// Dialogs
-			NewItemDialogComponent
+			NewItemDialogComponent,
+			DeleteInvoiceDialogComponent
 	]
 })
 

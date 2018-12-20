@@ -44,6 +44,10 @@ const Invoice = new mongoose.Schema({
 	outstanding: {
 		type: Number,
 		required: true
+	},
+	archived: {
+		type: Boolean,
+		required: false
 	}
 })
 

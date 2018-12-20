@@ -8,6 +8,7 @@ import { MatSort, MatTableDataSource, MatDialog, MatDialogRef } from '@angular/m
 import * as moment from 'moment';
 
 import { NewItemDialogComponent } from '@app/invoices/dialogs/new-item-dialog/new-item-dialog.component';
+import { DeleteInvoiceDialogComponent } from '@app/invoices/dialogs/delete-invoice-dialog/delete-invoice-dialog.component';
 
 import Invoice from '@app/interfaces/invoice.interface';
 import { NotificationsService } from '@app/services/notifications/notifications.service';
@@ -48,6 +49,7 @@ export class ViewInvoiceComponent implements OnInit {
 	]
 
 	newItemDialogRef: MatDialogRef<NewItemDialogComponent>;
+	deleteInvoiceDialogRef: MatDialogRef<DeleteInvoiceDialogComponent>;
 
 	constructor(private router: Router, private activatedRoute: ActivatedRoute, private contactsService: ContactsService, private invoicesService: InvoicesService, private notificationsService: NotificationsService, private formBuilder: FormBuilder, private dialog: MatDialog) {
 		this.invoiceForm = this.formBuilder.group({
@@ -184,6 +186,40 @@ export class ViewInvoiceComponent implements OnInit {
 	saveAndSend() {
 		// TODO:
 		console.log('ViewInvoice.saveAndSend()');
+	}
+
+
+	// toggleInvoiceArchived()
+	toggleInvoiceArchived() {
+		
+		if (!this.invoice.archived) {
+			this.invoice.archived = true;
+		} else {
+			this.invoice.archived = false;
+		}
+
+		this.saveInvoice();
+	}
+
+
+	// deleteInvoice()
+	deleteInvoice() {
+		this.deleteInvoiceDialogRef = this.dialog.open(DeleteInvoiceDialogComponent, {
+			hasBackdrop: true
+		})
+
+		this.deleteInvoiceDialogRef.afterClosed().subscribe(deleteResponse => {
+			if (JSON.parse(deleteResponse) == true) {
+				this.invoicesService.deleteInvoice(this.invoice).toPromise()
+					.then(res => {
+						this.notificationsService.createAlert('Invoice deleted', null);
+						this.router.navigateByUrl('invoices/all');
+					})
+					.catch(err => {
+						this.notificationsService.createAlert(`Error deleting invoice: ${err.message}`, 'Close');
+					})
+			}
+		})
 	}
 
 

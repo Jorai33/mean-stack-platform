@@ -17,6 +17,8 @@ import { NotificationsService } from '@app/services/notifications/notifications.
 
 export class AllInvoicesComponent implements OnInit {
 
+	invoices: Invoice[];
+
 	total: number = 0;
 	
 	unsubscribe$ = new Subject();
@@ -60,7 +62,8 @@ export class AllInvoicesComponent implements OnInit {
 			invoices$
 				.pipe(takeUntil(this.unsubscribe$))
 				.subscribe((invoices: Invoice[]) => {
-					this.tableData.data = invoices;
+					this.invoices = invoices;
+					this.tableData.data = this.invoices.filter(invoice => !invoice.archived);
 					this.calculateTotal(invoices);
 				})
 
@@ -111,6 +114,16 @@ export class AllInvoicesComponent implements OnInit {
 		})
 
 		return total;
+	}
+
+
+	// toggleArchived(event)
+	toggleArchived(event) {
+		if (event.checked) {
+			this.tableData.data = this.invoices;
+		} else {
+			this.tableData.data = this.invoices.filter(invoice => !invoice.archived);
+		}
 	}
 
 

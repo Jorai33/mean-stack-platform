@@ -40,7 +40,12 @@ export class InvoicesService {
 
 	updateInvoice(invoice) {
 		const headers = new HttpHeaders().set('x-access-token', localStorage.getItem('token'));
-		return this.http.post(`${this.uri}/invoice/update/${invoice._id}`, invoice, { headers });
+		return this.http.post(`${this.uri}/invoices/update/${invoice._id}`, invoice, { headers });
+	}
+
+	deleteInvoice(invoice) {
+		const headers = new HttpHeaders().set('x-access-token', localStorage.getItem('token'));
+		return this.http.delete(`${this.uri}/invoices/${invoice._id}`, { headers });
 	}
 
 }

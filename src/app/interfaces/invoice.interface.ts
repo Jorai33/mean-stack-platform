@@ -11,5 +11,6 @@ export default interface Invoice {
     subtotal: number,
     tax: number,
     total: number,
-    outstanding: number
+    outstanding: number,
+    archived: boolean
 }

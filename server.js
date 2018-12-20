@@ -253,7 +253,7 @@ router.route('/invoices').post((req, res) => {
 })
 
 // Update invoice by ID
-router.route('/invoice/update/:id').post((req, res) => {
+router.route('/invoices/update/:id').post((req, res) => {
       Invoice.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, invoice) => {
             if (err) {
                 res.json(err);
@@ -264,16 +264,14 @@ router.route('/invoice/update/:id').post((req, res) => {
 })
 
 // Delete invoice by ID
-router.route('/invoices/delete/:id').get((req, res) => {
-    Invoice.findByIdAndRemove({
-        id: req.params.id
-    }, (err, res) => {
-        if (err) {
-            res.json(err);
-        } else {
-            res.status(200).json('Successfully deleted invoice');
-        }
-    })
+router.route('/invoices/:id').delete((req, res) => {
+      Invoice.findByIdAndRemove(req.params.id, (err, invoice) => {
+            if (err) {
+                  res.json(err);
+            } else {
+                  res.status(200).json('Successfully deleted invoice');
+            }
+      })
 })
 
 

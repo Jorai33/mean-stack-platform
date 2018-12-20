@@ -1,4 +1,4 @@
-<p class="mat-h4">Invoice Summary - {{invoice ? invoice.reference : null}}</p>
+<p class="mat-h4">Invoice Summary - {{invoice ? invoice.reference : null}}{{invoice && invoice.archived ? ' (Archived)' : null}}</p>
 
 <br>
 
@@ -232,15 +232,21 @@
 
             <button mat-button routerLink="/invoices/all">Back to List</button>
 
-            <button mat-raised-button (click)="addItem()">Add Item</button>
+            <button *ngIf="!invoice.archived" mat-raised-button (click)="addItem()">Add Item</button>
 
         </div>
 
         <div class="toolbar__content--right">
 
-            <button mat-raised-button (click)="saveInvoice()">Save</button>
+            <button *ngIf="!invoice.archived" mat-raised-button (click)="saveInvoice()">Save</button>
 
             <button mat-raised-button (click)="saveAndSend()">Send</button>
+
+            <button *ngIf="!invoice.archived" mat-raised-button (click)="toggleInvoiceArchived()">Archive</button>
+
+            <button *ngIf="invoice.archived" mat-raised-button (click)="toggleInvoiceArchived()">Unarchive</button>
+
+            <button mat-raised-button color="warn" (click)="deleteInvoice()">Delete</button>
 
         </div>
 
