@@ -69,6 +69,20 @@ const routes: Routes = [
 		path: 'invoices',
 		loadChildren: './invoices/invoices.module#InvoicesModule',
 		canActivate: [CanActivateRouteGuard]
+	},
+
+	// Mileage
+	{
+		path: 'mileage',
+		loadChildren: './mileage/mileage.module#MileageModule',
+		canActivate: [CanActivateRouteGuard]
+	},
+
+	// Products and Services
+	{
+		path: 'products',
+		loadChildren: './products/products.module#ProductsModule',
+		canActivate: [CanActivateRouteGuard]
 	}
 ]
 

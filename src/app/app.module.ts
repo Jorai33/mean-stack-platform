@@ -13,6 +13,8 @@ import { CanActivateRouteGuard } from '@app/can-activate-route.guard';
 import { ContactsModule } from '@app/contacts/contacts.module';
 import { ExpensesModule } from '@app/expenses/expenses.module';
 import { InvoicesModule } from '@app/invoices/invoices.module'; 
+import { MileageModule } from '@app/mileage/mileage.module';
+import { ProductsModule } from '@app/products/products.module';
 
 // Material Module
 import { MaterialModule } from '@app/material.module';
@@ -47,6 +49,8 @@ import { SettingsComponent } from './settings/settings.component';
 		InvoicesModule,
 		ContactsModule,
 		ExpensesModule,
+		MileageModule,
+		ProductsModule,
 
 		// App Routing Module
 		AppRoutingModule,
