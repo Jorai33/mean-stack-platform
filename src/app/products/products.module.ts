@@ -8,9 +8,9 @@ import { SharedModule } from '@app/shared.module';
 import { MaterialModule } from '@app/material.module';
 
 // Components
-	import { NewProductComponent } from './new-product/new-product.component';
-      import { ViewProductComponent } from './view-product/view-product.component';
-      import { AllProductsComponent } from './all-products/all-products.component';
+import { NewProductComponent } from './new-product/new-product.component';
+import { ViewProductComponent } from './view-product/view-product.component';
+import { AllProductsComponent } from './all-products/all-products.component';
 
 @NgModule({
 
@@ -23,12 +23,9 @@ import { MaterialModule } from '@app/material.module';
 
 	declarations: [
 		// Components
-			// New Product
-			NewProductComponent,
-			// View Product
-			ViewProductComponent,
-			// All Products
-			AllProductsComponent
+		NewProductComponent,
+		ViewProductComponent,
+		AllProductsComponent
 	]
 })
 

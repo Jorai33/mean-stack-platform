@@ -83,6 +83,13 @@ const routes: Routes = [
 		path: 'products',
 		loadChildren: './products/products.module#ProductsModule',
 		canActivate: [CanActivateRouteGuard]
+	},
+
+	// Accounts
+	{
+		path: 'account',
+		loadChildren: './accounts/accounts.module#AccountsModule',
+		canActivate: [CanActivateRouteGuard]
 	}
 ]
 

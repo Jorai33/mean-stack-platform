@@ -15,6 +15,7 @@ import { ExpensesModule } from '@app/expenses/expenses.module';
 import { InvoicesModule } from '@app/invoices/invoices.module'; 
 import { MileageModule } from '@app/mileage/mileage.module';
 import { ProductsModule } from '@app/products/products.module';
+import { AccountsModule } from '@app/accounts/accounts.module';
 
 // Material Module
 import { MaterialModule } from '@app/material.module';
@@ -51,6 +52,7 @@ import { SettingsComponent } from './settings/settings.component';
 		ExpensesModule,
 		MileageModule,
 		ProductsModule,
+		AccountsModule,
 
 		// App Routing Module
 		AppRoutingModule,
@@ -71,4 +73,6 @@ import { SettingsComponent } from './settings/settings.component';
 	bootstrap: [AppComponent]
 })
 
-export class AppModule { }
+export class AppModule {
+	
+}

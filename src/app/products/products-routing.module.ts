@@ -3,9 +3,9 @@ import { RouterModule, Routes, RouterLinkActive } from '@angular/router';
 import { CanActivateRouteGuard } from '@app/can-activate-route.guard';
 
 // Components
-	import { NewProductComponent } from './new-product/new-product.component';
-	import { ViewProductComponent } from './view-product/view-product.component';
-	import { AllProductsComponent } from './all-products/all-products.component';
+import { NewProductComponent } from './new-product/new-product.component';
+import { ViewProductComponent } from './view-product/view-product.component';
+import { AllProductsComponent } from './all-products/all-products.component';
 
 const routes: Routes = [
 	{
