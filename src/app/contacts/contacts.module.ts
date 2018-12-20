@@ -14,6 +14,7 @@ import { MaterialModule } from '@app/material.module';
       import { ViewContactComponent } from './view-contact/view-contact.component';
       // All Contacts
       import { AllContactsComponent } from './all-contacts/all-contacts.component';
+import { DeleteContactDialogComponent } from './dialogs/delete-contact-dialog/delete-contact-dialog.component';
 
 @NgModule({
 
@@ -31,11 +32,14 @@ import { MaterialModule } from '@app/material.module';
 			// View Contact
 			ViewContactComponent,
 			// All Contacts
-			AllContactsComponent
+			AllContactsComponent,
+			// Dialogs
+			DeleteContactDialogComponent
 	],
 
 	entryComponents: [
 		// Dialogs
+		DeleteContactDialogComponent
 	]
 })
 

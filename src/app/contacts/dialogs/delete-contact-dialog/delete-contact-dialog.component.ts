@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-	selector: 'app-delete-invoice-dialog',
+	selector: 'app-delete-contact-dialog',
 	template: `
-		<p class="mat-h4">Delete Invoice</p>
+		<p class="mat-h4">Delete Contact</p>
 
 		<br>
 		
 		<div mat-dialog-content>
 		
-			<p>Are you sure you want to delete this invoice? This action cannot be undone.</p>
+			<p>Are you sure you want to delete this contact? This action cannot be undone.</p>
 		
 		<br>
 		
@@ -25,10 +25,10 @@ import { Component, OnInit } from '@angular/core';
 	`
 })
 
-export class DeleteInvoiceDialogComponent implements OnInit {
+export class DeleteContactDialogComponent implements OnInit {
 
 	constructor() {
-
+		
 	}
 
 	ngOnInit() {

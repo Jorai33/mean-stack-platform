@@ -155,10 +155,8 @@ router.route('/contact/update/:id').post((req, res) => {
 })
 
 // Delete contact by ID
-router.route('/contacts/delete/:id').get((req, res) => {
-      Contact.findByIdAndRemove({
-            id: req.params.id
-      }, (err, contact) => {
+router.route('/contacts/:id').delete((req, res) => {
+      Contact.findByIdAndRemove(req.params.id, (err, contact) => {
             if (err) {
                   res.json(err);
             } else {

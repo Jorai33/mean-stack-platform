@@ -6,7 +6,10 @@ import { takeUntil } from 'rxjs/operators';
 import { MatPaginator, MatSort, MatTableDataSource, MatDialog, MatDialogRef } from '@angular/material';
 import * as moment from 'moment';
 
+import { DeleteContactDialogComponent } from '@app/contacts/dialogs/delete-contact-dialog/delete-contact-dialog.component';
+
 import Contact from '@app/interfaces/contact.interface';
+
 import { NotificationsService } from '@app/services/notifications/notifications.service';
 import { ContactsService } from '@app/services/contacts/contacts.service';
 import { InvoicesService } from '@app/services/invoices/invoices.service';
@@ -40,6 +43,8 @@ export class ViewContactComponent implements OnInit {
 		'total',
 		'status'
 	]
+
+	deleteContactDialogRef: MatDialogRef<DeleteContactDialogComponent>;
 
 	constructor(private router: Router, private activatedRoute: ActivatedRoute, private contactsService: ContactsService, private invoicesService: InvoicesService, private notificationsService: NotificationsService, private formBuilder: FormBuilder, private dialog: MatDialog) {
 		this.contactForm = this.formBuilder.group({
@@ -172,6 +177,27 @@ export class ViewContactComponent implements OnInit {
 			.catch(err => {
 				this.notificationsService.createAlert(`Error updating contact: ${err.message}`, 'Close');
 			})
+	}
+
+
+	// deleteContact()
+	deleteContact() {
+		this.deleteContactDialogRef = this.dialog.open(DeleteContactDialogComponent, {
+			hasBackdrop: true
+		})
+
+		this.deleteContactDialogRef.afterClosed().subscribe(deleteResponse => {
+			if (JSON.parse(deleteResponse) == true) {
+				this.contactsService.deleteContact(this.contact).toPromise()
+					.then(res => {
+						this.notificationsService.createAlert('Contact deleted', null);
+						this.router.navigateByUrl('contacts/all');
+					})
+					.catch(err => {
+						this.notificationsService.createAlert(`Error deleting contact: ${err.message}`, 'Close');
+					})
+			}
+		})
 	}
 
 

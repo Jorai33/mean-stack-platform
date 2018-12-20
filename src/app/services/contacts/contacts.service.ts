@@ -36,7 +36,12 @@ export class ContactsService {
 
 	updateContact(contact) {
 		const headers = new HttpHeaders().set('x-access-token', localStorage.getItem('token'));
-		return this.http.post(`${this.uri}/contact/update/${contact._id}`, contact, { headers });
+		return this.http.post(`${this.uri}/contacts/update/${contact._id}`, contact, { headers });
+	}
+
+	deleteContact(contact) {
+		const headers = new HttpHeaders().set('x-access-token', localStorage.getItem('token'));
+		return this.http.delete(`${this.uri}/contacts/${contact._id}`, { headers });
 	}
 
 }
