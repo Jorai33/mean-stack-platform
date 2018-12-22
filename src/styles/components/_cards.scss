@@ -1,5 +1,16 @@
-mat-card-title,
-.mat-card-title {
-    font-size: 16px;
-    font-weight: 400;
+.mat-card-header {
+
+      mat-card-title,
+      .mat-card-title {
+      font-size: 14px;
+      font-weight: 400;
+      }
+
+      .mat-card-header-text {
+            margin: 0;
+      }
+
+      .mat-card-subtitle {
+            font-size: 13px;
+      }
 }
