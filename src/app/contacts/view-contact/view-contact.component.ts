@@ -33,6 +33,7 @@ export class ViewContactComponent implements OnInit {
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
+
 	invoicesData = new MatTableDataSource<any>();
 	tableColumns = [
 		'reference',
@@ -107,10 +108,10 @@ export class ViewContactComponent implements OnInit {
 				.subscribe(invoices => {
 					this.invoices = invoices;
 					this.invoicesData.data = invoices;
-				})
 
-			this.invoicesData.paginator = this.paginator;
-			this.invoicesData.sort = this.sort;
+					this.invoicesData.paginator = this.paginator;
+					this.invoicesData.sort = this.sort;
+				})
 		} catch(err) {
 			this.notificationsService.createAlert(`Error retrieving invoices for contact: ${err.message}`, 'Close');
 		}
@@ -198,6 +199,16 @@ export class ViewContactComponent implements OnInit {
 					})
 			}
 		})
+	}
+
+
+	// toggleArchivedInvoices(event)
+	toggleArchivedInvoices(event) {
+		if (event.checked) {
+			this.invoicesData.data = this.invoices;
+		} else {
+			this.invoicesData.data = this.invoices.filter(invoice => !invoice.archived);
+		}
 	}
 
 

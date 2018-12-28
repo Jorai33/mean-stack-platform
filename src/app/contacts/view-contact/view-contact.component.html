@@ -142,7 +142,13 @@
 
 	<br>
 
-	<p class="mat-title">{{getInvoicesTotal() | currency: 'GBP'}} <span class="mat-small text-muted">(Last 365 days)</span></p>
+	<div fxLayout="row" fxLayoutAlign="space-between center">
+	
+			<p class="mat-title">{{getInvoicesTotal() | currency: 'GBP'}} <span class="mat-small text-muted">(Last 365 days)</span></p>
+	
+			<mat-checkbox (change)="toggleArchivedInvoices($event)">Include archived?</mat-checkbox>
+	
+	</div>
 
 	<table *ngIf="invoicesData.data.length" mat-table [dataSource]="invoicesData" matSort matSortActive="_id" matSortDirection="asc" class="mat-elevation-z0" width="100%" class="hasPaginator">
 		
@@ -208,7 +214,7 @@
 	
 	</table>
 	
-	<mat-paginator *ngIf="invoicesData" [length]="invoicesData.length" [pageSize]="25" [pageSizeOptions]="[5, 10, 25, 50]" class="mat-elevation-z0"></mat-paginator>
+	<mat-paginator *ngIf="invoicesData" [length]="invoicesData.data.length" [pageSize]="25" [pageSizeOptions]="[5, 10, 25, 50]" class="mat-elevation-z0"></mat-paginator>
 
     <mat-toolbar fxLayout="row" fxLayoutAlign="space-between center" class="toolbar--bottom">
 
