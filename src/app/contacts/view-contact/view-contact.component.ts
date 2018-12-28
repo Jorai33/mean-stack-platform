@@ -107,7 +107,7 @@ export class ViewContactComponent implements OnInit {
 				.pipe(takeUntil(this.unsubscribe$))
 				.subscribe(invoices => {
 					this.invoices = invoices;
-					this.invoicesData.data = invoices;
+					this.invoicesData.data = invoices.filter(invoice => !invoice.archived);
 
 					this.invoicesData.paginator = this.paginator;
 					this.invoicesData.sort = this.sort;
